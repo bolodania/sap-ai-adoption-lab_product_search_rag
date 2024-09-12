@@ -1,0 +1,8 @@
+{
+    "CATALOG_UPDATED_DEV_1_DBADMIN": {
+        "target": {
+            "object": "CATALOG_UPDATED_DEV_1_DBADMIN",
+            "schema": "DBADMIN"
+        }
+    }
+}
