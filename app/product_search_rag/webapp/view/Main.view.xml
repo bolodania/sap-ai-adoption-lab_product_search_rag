@@ -1,0 +1,103 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="productsearchrag.controller.Main" xmlns:l="sap.ui.layout" displayBlock="true">
+    <Page id="page" title="{i18n>title}" class= "sapUiResponsivePadding--header" >
+		<content>
+
+			<FlexBox alignItems="Start" justifyContent="Start" class="sapUiSmallMargin">
+				<VBox class="sapUiSmallMarginEnd">
+					<Label text="Limit the number of products shown to:"/>
+					<StepInput id="outputLimitStepInput" min="1" max="15" value="{intValModel>/outputLimit}"></StepInput>
+				</VBox>
+				<VBox class="sapUiSmallMarginEnd"> 
+					<Label text="With Retrieval Augmented Generation:"/>
+					<Switch id="enableRagSwitch" state="{intValModel>/enableRAG}" customTextOn="Yes" customTextOff="No">
+					<layoutData>
+						<FlexItemData growFactor="1" />
+					</layoutData>
+				</Switch>
+				</VBox>
+			</FlexBox>
+
+			<FlexBox renderType="Bare" direction="Column" class="sapUiSmallMargin" alignItems="End">
+				<TextArea id="promptInput" placeholder="Enter propmt for LLM. e.g., 'I am looking for products with 4 star or more' " value="I am looking for products with 4 star or more" growing="true" growingMaxLines="7" width="100%"/>
+
+				<Button id="button0" type="Emphasized" text="Submit" press="_onSubmit" width="auto" />
+			</FlexBox>
+
+			<Table id="table0"
+				visible="false"
+				class="sapUiResponsivePadding"
+				items="{
+					path: 'responseModel>/',
+					sorter: {
+						path: 'scoring',
+						descending : true
+					}
+				}">
+				<headerToolbar>
+					<OverflowToolbar>
+						<content>
+							<Title text="Results" level="H2"/>
+							<ToolbarSpacer />
+						</content>
+					</OverflowToolbar>
+				</headerToolbar>
+				<!-- <infoToolbar>
+					<OverflowToolbar>
+						<Label text="Wide range of available products"/>
+					</OverflowToolbar>
+				</infoToolbar> -->
+				<columns>
+					<!-- <Column width="15%">
+						<Text text="Asset Type" />
+					</Column> -->
+					<Column width="40%">
+						<Text text="Product Description" />
+					</Column>
+					<Column>
+						<Text text="Link" />
+					</Column>
+					<Column hAlign="Center">
+						<Text text="Scoring" />
+					</Column>
+					<!-- <Column hAlign="End">
+						<Text text="Price" />
+					</Column> -->
+					<Column id="llmExplanationColumn" width="20%" visible="false">
+						<Text text="LLM Explanation" />
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem vAlign="Middle">
+						<cells>
+							<!-- <ObjectIdentifier
+								title="{responseModel>asset_type}"/> -->
+							<Text
+								text="{responseModel>desc}" />
+							<Link
+								text="{responseModel>link_text}"
+								target="_blank"
+								href="{responseModel>link_url}"/>
+							<ObjectNumber
+								number="{responseModel>scoring}" />
+							<Text
+								text="{responseModel>explanation}" />
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+
+			<IllustratedMessage
+				visible="true"
+				id="im"
+				title="Nothing to see here yet"
+				description="Submit a prompt to view the results"
+				illustrationSize="Auto"
+				illustrationType="tnt-Avatar">
+				<!-- <additionalContent>
+					<Button text="Action (optional)" />
+				</additionalContent> -->
+			</IllustratedMessage>
+			
+		</content>
+    </Page>
+</mvc:View>

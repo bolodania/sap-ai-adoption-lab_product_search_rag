@@ -1,7 +1,7 @@
 {
     "name": "product_search_rag",
     "version": "1.0.0",
-    "description": "A simple CAP project.",
+    "description": "Product Search RAG App",
     "repository": "<Add your repository here>",
     "license": "UNLICENSED",
     "private": true,
@@ -30,7 +30,11 @@
         "start": "cds-serve",
         "start-local": "npm run generate-entry-point && npm run cds-watch",
         "generate-entry-point": "dev-cap-tools gen-entrypoint",
-        "cds-watch": "cds watch --open"
+        "cds-watch": "cds watch --open",
+        "watch-scale_assets_search": "cds watch --open scale_assets_search/webapp/index.html?sap-ui-xx-viewCache=false",
+        "undeploy": "cf undeploy product_search_rag --delete-services --delete-service-keys --delete-service-brokers",
+        "build": "rimraf resources mta_archives && mbt build --mtar archive",
+        "deploy": "cf deploy mta_archives/archive.mtar --retries 1"
     },
     "cds": {
         "requires": {
