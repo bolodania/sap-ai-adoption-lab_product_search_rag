@@ -13,9 +13,8 @@ class GenAIService extends LCAPApplicationService {
             const limit = req.data.limit;
             const withRAG = req.data.withRAG;
 
-            // console.log("input");
-
-            return handlerAICore.connectToGenAI(prompt, limit, withRAG);
+            // return handlerAICore.connectToGenAI(prompt, limit, withRAG);
+            return handlerAICore.connectToGenAIviaPlugin(prompt, limit);
         });
 
         return super.init();

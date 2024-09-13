@@ -140,10 +140,32 @@ modules:
           artifacts:
             - launchpad.zip
           target-path: resources
+        - artifacts:
+            - productsearchrag.zip
+          name: productsearchrag
+          target-path: resources/
     requires:
       - name: product_search_rag-service-html5-apps-repo-host
         parameters:
           content-target: true
+      
+  - name: productsearchrag
+    type: html5
+    path: app/product_search_rag
+    build-parameters:
+      # build-result: dist
+      builder: custom
+      commands:
+        - rm -rf dist-zip dist
+        - >-
+          npx -p @ui5/cli@^3.0.0 ui5 build --dest dist
+          --include-task=generateManifestBundle
+          --include-task=generateCachebusterInfo
+        - mkdir dist-zip
+        - bash -c "cd dist && npx bestzip ../dist-zip/productsearchrag.zip *"
+      _artifactName: productsearchrag.zip
+      supported-platforms: []
+      build-result: dist-zip
 resources:
   - name: cross_container_service
     type: org.cloudfoundry.existing-service
