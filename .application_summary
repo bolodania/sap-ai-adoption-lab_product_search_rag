@@ -1,5 +1,5 @@
 {
   "ProjectOverviewURL": "https://integrationworkshop-fzhq66fs.launchpad.cfapps.eu10.hana.ondemand.com/lcapproduct_search_rag.product_search_ragLaunchpad-1.0.0/",
-  "DeployedUTCTime": "2024-09-12T21:47:31.327Z",
+  "DeployedUTCTime": "2024-09-17T14:37:27.965Z",
   "ApplicationLogURL": "https://logs.cf.eu10.hana.ondemand.com/app/dashboards#/view/Overview?_g=(filters:!((query:(match_phrase:(component_name:product_search_rag-srv)))))"
 }

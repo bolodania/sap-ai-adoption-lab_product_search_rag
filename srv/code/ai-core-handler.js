@@ -2,7 +2,7 @@
 const AI_CORE_DESTINATION = "PROVIDER_AI_CORE_DESTINATION_HUB";
 
 //define the API Version of the LLM model
-const API_VERSION = process.env["AI_CORE_API_VERSION"] || "2024-02-01";
+const API_VERSION = process.env["AI_CORE_API_VERSION"] || "2024-08-06";
 
 const tableName = 'CATALOG_UPDATED_DEV_1_DBADMIN';
 const embeddingColumn = 'VEC_VECTOR';
