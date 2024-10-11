@@ -30,7 +30,7 @@ export const CAP_BASE_URL = "api/odata/v4/reference-documents";
 export const CAP_BASE_MOVIE_URL: string = "movie-api/odata/v4/movies";
 
 /**
- * @namespace ui.controller
+ * @namespace productsearchrag.controller
  */
 export default abstract class BaseController extends Controller {
 	private createGetLinePopover: Popover;
