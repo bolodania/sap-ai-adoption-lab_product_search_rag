@@ -6,7 +6,7 @@ metadata:
 type: application
 framework:
   name: SAPUI5
-  version: "1.117.1"
+  version: "1.128.0"
   libraries:
     - name: sap.m
     - name: sap.ui.core
@@ -24,7 +24,7 @@ builder:
       afterTask: generateCachebusterInfo
       configuration:
         onlyZip: true
-        archiveName: aiui
+        archiveName: project1
         additionalFiles:
           "xs-app.prod.json": "xs-app.json"
 server:

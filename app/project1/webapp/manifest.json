@@ -17,7 +17,7 @@
     },
     "dataSources": {
       "mainService": {
-        "uri": "service/genAI/",
+        "uri": "/service/genAI/",
         "type": "OData",
         "settings": {
           "annotations": [],
@@ -43,7 +43,7 @@
     }
   },
   "sap.ui5": {
-    "flexEnabled": true,
+    "flexEnabled": false,
     "dependencies": {
       "minUI5Version": "1.129.2",
       "libs": {
@@ -67,9 +67,14 @@
         "preload": true,
         "settings": {
           "operationMode": "Server",
+          "synchronizationMode": "None",
           "autoExpandSelect": true,
           "earlyRequests": true
         }
+      },
+      "suggestedQuestions": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/suggestedQuestions.json"
       }
     },
     "resources": {
@@ -83,28 +88,54 @@
       "config": {
         "routerClass": "sap.m.routing.Router",
         "viewType": "XML",
-        "async": true,
         "viewPath": "project1.view",
         "controlAggregation": "pages",
         "controlId": "app",
-        "clearControlAggregation": false
+        "transition": "no",
+        "async": true
       },
       "routes": [
         {
-          "name": "RouteView1",
-          "pattern": ":?query:",
+          "pattern": "",
+          "name": "main",
           "target": [
-            "TargetView1"
+            "main"
+          ]
+        },
+        {
+          "pattern": "main",
+          "name": "main",
+          "target": [
+            "main"
+          ]
+        },
+        {
+          "pattern": "expert",
+          "name": "expert",
+          "target": [
+            "expert"
+          ]
+        },
+        {
+          "pattern": "standard",
+          "name": "standard",
+          "target": [
+            "standard"
           ]
         }
       ],
       "targets": {
-        "TargetView1": {
-          "viewType": "XML",
-          "transition": "slide",
-          "clearControlAggregation": false,
-          "viewId": "View1",
-          "viewName": "View1"
+        "main": {
+          "viewId": "main",
+          "viewName": "Standard"
+        },
+        "standard": {
+          "viewId": "standard",
+          "viewName": "Standard"
+        },
+        "expert": {
+          "viewId": "expert",
+          "viewName": "Expert"
         }
       }
     },
