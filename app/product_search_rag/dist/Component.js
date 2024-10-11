@@ -1,2 +1,0 @@
-sap.ui.define(["sap/ui/core/UIComponent","sap/ui/Device","productsearchrag/model/models","sap/m/IllustrationPool"],function(e,t,i,s){"use strict";return e.extend("productsearchrag.Component",{metadata:{manifest:"json"},init:function(){e.prototype.init.apply(this,arguments);var t={setFamily:"tnt",setURI:sap.ui.require.toUrl("sap/tnt/themes/base/illustrations")};s.registerIllustrationSet(t,false);this.getRouter().initialize();this.setModel(i.createDeviceModel(),"device")}})});
-//# sourceMappingURL=Component.js.map
