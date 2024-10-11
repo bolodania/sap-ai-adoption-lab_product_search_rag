@@ -3,20 +3,6 @@ ID: product_search_rag
 description: A simple CAP project.
 version: 1.0.0
 modules:
-- name: product_search_rag-productsearchrag
-  type: html5
-  path: app/product_search_rag
-  build-parameters:
-    _artifactName: productsearchrag.zip
-    build-result: dist-zip
-    builder: custom
-    commands:
-    - rm -rf dist-zip dist
-    - npm install
-    - npx -p @ui5/cli@^3.0.0 ui5 build --dest dist --include-task=generateCachebusterInfo
-    - mkdir dist-zip
-    - bash -c "cd dist && npx bestzip ../dist-zip/productsearchrag.zip *"
-    supported-platforms: []
 - name: product_search_rag-db-deployer
   type: hdb
   path: gen/db
@@ -125,10 +111,6 @@ modules:
     build-result: resources
     requires:
     - artifacts:
-      - productsearchrag.zip
-      name: product_search_rag-productsearchrag
-      target-path: resources
-    - artifacts:
       - launchpad.zip
       name: product_search_rag-launchpad
       target-path: resources
@@ -144,7 +126,7 @@ modules:
     builder: custom
     commands:
     - npm install
-    - npm run build:cf
+    - npm run build
     supported-platforms: []
 resources:
 - name: product_search_rag-service-uaa

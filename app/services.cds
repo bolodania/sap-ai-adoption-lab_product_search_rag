@@ -1,2 +1,2 @@
 
-using from './product_search_rag/annotations';
+using from './project1/annotations';
