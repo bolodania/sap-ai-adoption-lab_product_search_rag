@@ -89,7 +89,11 @@
           "autoExpandSelect": true,
           "earlyRequests": true
         }
-      }
+      },
+			"suggestedQuestions": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/suggestedQuestions.json"
+			}
     },
     "resources": {
       "css": [
@@ -110,19 +114,19 @@
       },
       "routes": [
         {
-          "name": "RouteApp",
+          "name": "main",
           "pattern": ":?query:",
           "target": [
-            "TargetApp"
+            "main"
           ]
         }
       ],
       "targets": {
-        "TargetApp": {
+        "main": {
           "viewType": "XML",
           "transition": "slide",
           "clearControlAggregation": false,
-          "viewId": "Main",
+          "viewId": "main",
           "viewName": "Main"
         }
       }

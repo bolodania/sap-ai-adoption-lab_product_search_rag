@@ -21,6 +21,7 @@ sap.ui.define([
                     enableRAG: false
                 });
                 this.getView().setModel(intValModel, "intValModel");
+                
             },
 
             _onSubmit: function () {
