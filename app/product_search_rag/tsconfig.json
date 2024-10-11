@@ -10,12 +10,23 @@
 		"strictPropertyInitialization": false,
 		"rootDir": "./webapp",
 		"outDir": "./dist",
-		"types": ["@sapui5/types", "@types/qunit"],
+		"types": [
+			"@sapui5/types",
+			"@types/qunit"
+		],
 		"paths": {
-			"ui/*": ["./webapp/*"],
-			"unit/*": ["./webapp/test/unit/*"],
-			"integration/*": ["./webapp/test/integration/*"]
+			"productsearchrag/*": [
+				"./webapp/*"
+			],
+			"unit/*": [
+				"./webapp/test/unit/*"
+			],
+			"integration/*": [
+				"./webapp/test/integration/*"
+			]
 		}
 	},
-	"include": ["./webapp/**/*"]
+	"include": [
+		"./webapp/**/*"
+	]
 }

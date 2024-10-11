@@ -1,4 +1,4 @@
-_schema-version: "3.1"
+_schema-version: '3.1'
 ID: product_search_rag
 version: 1.0.0
 description: A simple CAP project.
@@ -26,6 +26,22 @@ build-parameters:
       commands:
         - npm install
 modules:
+  - name: product_search_rag-productsearchrag
+    type: html5
+    path: app/product_search_rag
+    build-parameters:
+      builder: custom
+      commands:
+        - rm -rf dist-zip dist
+        - npm install
+        - >-
+          npx -p @ui5/cli@^3.0.0 ui5 build --dest dist
+          --include-task=generateCachebusterInfo
+        - mkdir dist-zip
+        - bash -c "cd dist && npx bestzip ../dist-zip/productsearchrag.zip *"
+      _artifactName: productsearchrag.zip
+      supported-platforms: []
+      build-result: dist-zip
   - name: product_search_rag-db-deployer
     type: hdb
     path: gen/db
@@ -37,12 +53,7 @@ modules:
         - node_modules
         - package-lock.json
     requires:
-      - name: cross_container_service
-        group: SERVICE_REPLACEMENTS
-        properties:
-          key: ServiceName_1
-          service: ~{the-service-name}
-      # - name: product_search_rag-service-uaa
+      - name: product_search_rag-service-uaa
       - name: product_search_rag-service-db
   - name: product_search_rag-srv
     type: nodejs
@@ -136,43 +147,19 @@ modules:
     build-parameters:
       build-result: resources
       requires:
+        - name: product_search_rag-productsearchrag
+          artifacts:
+            - productsearchrag.zip
+          target-path: resources
         - name: product_search_rag-launchpad
           artifacts:
             - launchpad.zip
           target-path: resources
-        - artifacts:
-            - productsearchrag.zip
-          name: productsearchrag
-          target-path: resources/
     requires:
       - name: product_search_rag-service-html5-apps-repo-host
         parameters:
           content-target: true
-      
-  - name: productsearchrag
-    type: html5
-    path: app/product_search_rag
-    build-parameters:
-      # build-result: dist
-      builder: custom
-      commands:
-        - rm -rf dist-zip dist
-        - >-
-          npx -p @ui5/cli@^3.0.0 ui5 build --dest dist
-          --include-task=generateManifestBundle
-          --include-task=generateCachebusterInfo
-        - mkdir dist-zip
-        - bash -c "cd dist && npx bestzip ../dist-zip/productsearchrag.zip *"
-      _artifactName: productsearchrag.zip
-      supported-platforms: []
-      build-result: dist-zip
 resources:
-  - name: cross_container_service
-    type: org.cloudfoundry.existing-service
-    parameters:
-      service-name: ups_product-search-rag
-    properties:
-      the-service-name: ${service-name}
   - type: org.cloudfoundry.managed-service
     name: product_search_rag-service-uaa
     parameters:

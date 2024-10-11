@@ -18,13 +18,22 @@
       }
     }
   },
-  "applications": {}
+  "applications": {
+    "product_search_rag-search": {
+      "title": "Product Search",
+      "description": "Product Search RAG Application",
+      "applicationType": "URL",
+      "navigationMode": "newWindowThenEmbedded",
+      "url": "../lcapproduct_search_rag.productsearchrag-0.0.1",
+      "additionalInformation": "SAPUI5.Component=productsearchrag"
+    }
+  }
 };
         </script>
         <link rel="stylesheet" href="assets/launchpad.css">
-        <script src="https://ui5.sap.com/1.125.1/test-resources/sap/ushell/bootstrap/sandbox.js"></script>
+        <script src="https://ui5.sap.com/1.120.17/test-resources/sap/ushell/bootstrap/sandbox.js"></script>
         <script
-            src="https://ui5.sap.com/1.125.1/resources/sap-ui-core.js"
+            src="https://ui5.sap.com/1.120.17/resources/sap-ui-core.js"
             data-sap-ui-libs="sap.m, sap.ushell, sap.fe.templates"
             data-sap-ui-compatVersion="edge"
             data-sap-ui-theme="sap_horizon"
@@ -34,7 +43,9 @@
         ></script>
         <script>
             sap.ui.getCore().attachInit(function() {
-                sap.ushell.Container.createRenderer().placeAt('content');
+                sap.ushell.Container.createRenderer("fiori2", true).then(function(oRenderer) {
+                  oRenderer.placeAt('content');
+                });
             });
         </script>
     </head>

@@ -27,12 +27,12 @@
         </l:BlockLayoutRow>
         <l:BlockLayoutRow class="blockLayoutContentRow">
             <l:BlockLayoutCell id="webApplications" width='2'>
-                <Title titleStyle="H3" text="Web Applications (0)"/>
+                <Title titleStyle="H3" text="Web Applications (1)"/>
                 <core:HTML 
                     content='&lt;hr class=&quot;webAppSeparator&quot;&gt;'>
                 </core:HTML>
                 <core:HTML
-                    content='&lt;p&gt;No web applications are included.&lt;/p&gt;'>
+                    content='&lt;p&gt;The user will have the following applications. Click to explore them live.&lt;/p&gt;'>
                 </core:HTML>
                 <core:HTML
                     content='&lt;iframe class=&quot;launchpad sectionContentMargin&quot; src=&quot;./launchpadPage.html&quot; frameBorder=0 &gt;&lt;/iframe&gt;'>

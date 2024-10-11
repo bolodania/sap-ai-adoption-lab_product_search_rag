@@ -26,6 +26,22 @@ build-parameters:
       commands:
         - npm install
 modules:
+  - name: product_search_rag-productsearchrag
+    type: html5
+    path: app/product_search_rag
+    build-parameters:
+      builder: custom
+      commands:
+        - rm -rf dist-zip dist
+        - npm install
+        - >-
+          npx -p @ui5/cli@^3.0.0 ui5 build --dest dist
+          --include-task=generateCachebusterInfo
+        - mkdir dist-zip
+        - bash -c "cd dist && npx bestzip ../dist-zip/productsearchrag.zip *"
+      _artifactName: productsearchrag.zip
+      supported-platforms: []
+      build-result: dist-zip
   - name: product_search_rag-db-deployer
     type: hdb
     path: gen/db
@@ -131,6 +147,10 @@ modules:
     build-parameters:
       build-result: resources
       requires:
+        - name: product_search_rag-productsearchrag
+          artifacts:
+            - productsearchrag.zip
+          target-path: resources
         - name: product_search_rag-launchpad
           artifacts:
             - launchpad.zip
