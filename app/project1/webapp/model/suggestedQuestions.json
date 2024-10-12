@@ -181,6 +181,7 @@
 			}
 		]
 	},
+	"showProductFiels": false,
 	"productsStatic": [
 		{
 			"PRODUCT_ID": "P_0110",

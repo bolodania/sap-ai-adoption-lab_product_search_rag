@@ -122,6 +122,16 @@ export default class Standard extends BaseController {
         this.onPromptSelect(event, "suggestedQuestions", "/scenario/prompts", "/standard/llmWithRagPrompt");
     }
 
+    public async onFindAlternativePress(): Promise<void> {
+        // this.onPromptSelect(event, "suggestedQuestions", "/scenario/prompts", "/standard/llmWithRagPrompt");
+        const localModel: JSONModel = this.getModel("suggestedQuestions") as JSONModel;
+		
+        const llmWithRagPrompt = "Suggest an alternative for a product name '" + this.byId("productInput").getValue() + "' with a description '" + this.byId("productDesc").getText() + "'";
+        console.log(llmWithRagPrompt);
+        
+		localModel.setProperty("/standard/llmWithRagPrompt", llmWithRagPrompt);
+    }
+
     public async onStandardPromptDeletePress(event: Event): Promise<void> {
         const selectedItem = event.getParameter("listItem").getId()
         const selectedItemIndex = +selectedItem.split("-").at(-1)

@@ -6,13 +6,13 @@
     xmlns:l="sap.ui.layout"
     xmlns:mvc="sap.ui.core.mvc"
 >
-    <l:FixFlex>
+    <!-- <l:FixFlex>
         <l:fixContent>
 					<ShellBar
-						title="{=${suggestedQuestions>/version} === '' ? ${i18n>appTitle} : ${i18n>appTitle} + ' - ' +  ${suggestedQuestions>/version} + ' View'}"
+						title="SAP HANA Cloud Vector Engine"
 						homeIcon="images/sap-logo.svg"
-					>
-					<menu>
+					> -->
+					<!-- <menu>
                     <m:Menu>
                         <m:MenuItem
                             text="Standard View"
@@ -36,11 +36,11 @@
                 </menu>
                 <additionalContent>
                     <m:OverflowToolbarButton icon="sap-icon://sys-help" press="onOpenHelpButtonPress"/>
-                </additionalContent>
-            </ShellBar>
+                </additionalContent> -->
+            <!-- </ShellBar>
         </l:fixContent>
-        <l:flexContent>
+        <l:flexContent> -->
             <m:App id="app" />
-        </l:flexContent>
-    </l:FixFlex>
+        <!-- </l:flexContent>
+    </l:FixFlex> -->
 </mvc:View>

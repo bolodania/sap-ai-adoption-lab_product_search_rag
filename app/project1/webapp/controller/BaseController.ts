@@ -241,12 +241,18 @@ export default abstract class BaseController extends Controller {
 		let oSelectedItem = event.getParameter("selectedItem");
 		let oInput = this.byId("productInput");
 
+		const localModel: JSONModel = this.getModel("suggestedQuestions") as JSONModel;
+
 		if (!oSelectedItem) {
 			oInput.resetProperty("value");
+			localModel.setProperty("/showProductFiels", false);
 			return;
+		} else {
+			localModel.setProperty("/showProductFiels", true);
 		}
 
 		oInput.setValue(oSelectedItem.getTitle());
+		this.byId("productDesc").setText(oSelectedItem.getDescription());
 	}
 
 	public async initMovieListDialog(version: string): Promise<void> {

@@ -97,16 +97,9 @@
       "routes": [
         {
           "pattern": "",
-          "name": "main",
+          "name": "standard",
           "target": [
-            "main"
-          ]
-        },
-        {
-          "pattern": "main",
-          "name": "main",
-          "target": [
-            "main"
+            "standard"
           ]
         },
         {
@@ -125,10 +118,6 @@
         }
       ],
       "targets": {
-        "main": {
-          "viewId": "main",
-          "viewName": "Standard"
-        },
         "standard": {
           "viewId": "standard",
           "viewName": "Standard"

@@ -9,7 +9,13 @@
     xmlns:grid="sap.ui.layout.cssgrid"
     xmlns:f="sap.f"
 >
+    
 	<Page showFooter="true" showHeader="false" enableScrolling="false">
+        <customHeader>
+            <f:ShellBar
+                title="SAP HANA Cloud Vector Engine"
+                homeIcon="images/sap-logo.svg" />
+        </customHeader>
         <l:Splitter id="splitterLayout">
             <ScrollContainer
                 width="100%"
@@ -26,26 +32,40 @@
                     class="sapUiSmallMargin">
                         <headerToolbar>
                             <OverflowToolbar>
-                                <Title text="{= ${suggestedQuestions>/scenario/name} === 'MOVIES'? ${i18n>movie.questionSelection} : ${i18n>cap.questionSelection}}" />
+                                <Title text="Product Selection" />
                                 <ToolbarSpacer />
-                                <Button
+                                <!-- <Button
                                     icon="sap-icon://database"
                                     text="{= ${suggestedQuestions>/scenario/name} === 'MOVIES'? ${i18n>movie.browse} : ${i18n>cap.browse}}"
                                     press="onOpenMovieList"
-                                />
+                                /> -->
                             </OverflowToolbar>
                         </headerToolbar>
                     <content>
-                        <Input
-                            id="productInput"
-                            type="Text"
-                            placeholder="Enter Product ..."
-                            showValueHelp="true"
-                            valueHelpOnly="true"
-                            valueHelpRequest=".onOpenMovieList"
-                            class="sapUiSmallMarginBottom"
-                            width="15rem" />
-                        <f:GridList
+                        <l:VerticalLayout class="sapUiResponsiveMargin" width="80%">
+                            <Label text="Product:" labelFor="productInput" />
+                            <Input
+                                id="productInput"
+                                type="Text"
+                                placeholder="Enter Product ..."
+                                showValueHelp="true"
+                                valueHelpOnly="true"
+                                valueHelpRequest=".onOpenMovieList"
+                                class="sapUiSmallMarginBottom"/>
+
+                            <Label text="Product Description:" labelFor="productDesc" visible="{suggestedQuestions>/showProductFiels}"/>
+                            <Text id="productDesc" visible="{suggestedQuestions>/showProductFiels}" class="sapUiSmallMarginBottom"/>
+
+                            <Label text="Product Status:" labelFor="productDesc" visible="{suggestedQuestions>/showProductFiels}"/>
+                            <ObjectStatus
+                                text="Not Available"
+                                icon="sap-icon://alert"
+                                state="Warning" visible="{suggestedQuestions>/showProductFiels}" class="sapUiSmallMarginBottom"/>
+
+                            <Button type="Emphasized" text="Find alternative?" press="onFindAlternativePress" visible="{suggestedQuestions>/showProductFiels}" class="sapUiSmallMarginBottom"/>
+                        </l:VerticalLayout>
+                        
+                        <!-- <f:GridList
                             id="StandardSelectList"
                                                 items="{suggestedQuestions>/scenario/prompts}"
                                                 width="auto"
@@ -90,7 +110,7 @@
                                     </VBox>
                                 </ScrollContainer>
                             </f:GridListItem>
-                        </f:GridList>
+                        </f:GridList> -->
                     </content>
                 </Panel>
                 <Panel

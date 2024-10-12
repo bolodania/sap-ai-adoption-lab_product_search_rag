@@ -20,15 +20,15 @@ export default class App extends BaseController {
     public onInit(): void {
         // apply content density mode to root view
         this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
-        // navigate to standard view on page reload
-        this.observer = new PerformanceObserver((list) => {
-            list.getEntries().forEach((entry) => {
-                if (entry.type === "reload") {
-                    this.navToMain();
-                }
-            });
-        });
-        this.observer.observe({ type: "navigation", buffered: true });
+        // // navigate to standard view on page reload
+        // this.observer = new PerformanceObserver((list) => {
+        //     list.getEntries().forEach((entry) => {
+        //         if (entry.type === "reload") {
+        this.navToMain();
+        //         }
+        //     });
+        // });
+        // this.observer.observe({ type: "navigation", buffered: true });
     }
 
     public onNavButtonPress(): void {
@@ -40,7 +40,7 @@ export default class App extends BaseController {
         localModel.setProperty("/scenario", JSON.parse(JSON.stringify(CAPMODEL)));
         localModel.setProperty("/version", "")
         localModel.setProperty("/scenario/promptChain", "");
-        this.navTo("main");
+        this.navTo("standard");
     }
 
     public onNavToScenarioPress(event: Event): void {
