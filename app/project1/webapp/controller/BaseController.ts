@@ -7,15 +7,16 @@ import ResourceBundle from "sap/base/i18n/ResourceBundle";
 import Router from "sap/ui/core/routing/Router";
 import History from "sap/ui/core/routing/History";
 import Dialog from "sap/m/Dialog";
+import SelectDialog from "sap/m/SelectDialog";
 import Text from "sap/m/Text";
 import Button from "sap/m/Button";
 import JSONModel from "sap/ui/model/json/JSONModel";
 import ODataModel from "sap/ui/model/odata/v4/ODataModel";
 import OperationMode from "sap/ui/model/odata/OperationMode";
 import Fragment from "sap/ui/core/Fragment";
-import {INITIAL_GRAPH} from "../model/graphModel";
+import { INITIAL_GRAPH } from "../model/graphModel";
 import MessageStrip from "sap/m/MessageStrip";
-import {ButtonType, DialogType } from "sap/m/library";
+import { ButtonType, DialogType } from "sap/m/library";
 import { ValueState } from "sap/ui/core/library";
 import Table, { Table$CellClickEvent } from "sap/ui/table/Table";
 import Column from "sap/ui/table/Column";
@@ -39,7 +40,7 @@ export default abstract class BaseController extends Controller {
 	private resourceBundle: ResourceBundle;
 	public controller: AbortController;
 	public signal: AbortSignal;
-	public movieListDialog: Dialog;
+	public movieListDialog: SelectDialog;
 	public graphObjects: any = {
 		naturalPromptDone: {
 			"node": {
@@ -204,57 +205,78 @@ export default abstract class BaseController extends Controller {
 
 	/* To open a generic message dialog */
 	public openMessageDialog(title: string, body: string) {
-		const content = new Text({text: body});
+		const content = new Text({ text: body });
 		content.addStyleClass("sapUiTinyMarginTop");
 		content.addStyleClass("sapUiSmallMarginBeginEnd");
 
-		const dialog = new Dialog({title: title, content: content, contentWidth: "40%"});
-		const closeButton = new Button({text: this.getText("buttons.close"), press: () => dialog.close()});
+		const dialog = new Dialog({ title: title, content: content, contentWidth: "40%" });
+		const closeButton = new Button({ text: this.getText("buttons.close"), press: () => dialog.close() });
 		dialog.setBeginButton(closeButton);
 		dialog.open();
 	}
 
 	public async onOpenMovieList(event: Event): Promise<void> {
+		const localModel: JSONModel = this.getModel("suggestedQuestions") as JSONModel;
 		if (!this.movieListDialog) {
-			const localModel: JSONModel = this.getModel("suggestedQuestions") as JSONModel;
 			const version = localModel.getProperty("/version")
 			await this.initMovieListDialog(version);
 		} else {
 			// we need to add the table again because on each dialog close, we destroy its content
-			this.movieListDialog.addContent(this.createDialogContent());
+			// this.movieListDialog.addContent(this.createDialogContent());
 		}
 		// this.createNewGroundingDialog.setModel("TODO");
+		let sInputValue = this.byId("productInput").getValue();
+		const aProducts = localModel.getProperty("/productsStatic");
+
+		aProducts.forEach(function (oProduct) {
+			oProduct.selected = (oProduct.PRODUCT_NAME === sInputValue);
+		});
+		localModel.setProperty("/productsStatic", aProducts);
 		this.movieListDialog.open();
 		/** Once the grounding has been created and stored, its metadata need to
 		 * be added to the model to update the list of available groundings */
 	}
 
+	public async onValueHelpDialogClose(event: Event): Promise<void> {
+		let oSelectedItem = event.getParameter("selectedItem");
+		let oInput = this.byId("productInput");
+
+		if (!oSelectedItem) {
+			oInput.resetProperty("value");
+			return;
+		}
+
+		oInput.setValue(oSelectedItem.getTitle());
+	}
+
 	public async initMovieListDialog(version: string): Promise<void> {
+
 		this.movieListDialog = (await Fragment.load({
 			id: "MovieListDialog" + version,
 			name: "project1.view.MovieListDialog",
 			controller: this
-		})) as Dialog;
-		const dialog = this.movieListDialog as Dialog;
+		})) as SelectDialog;
+		const dialog = this.movieListDialog as SelectDialog;
 		this.getView().addDependent(this.movieListDialog);
-		const closeButton = new Button({
-			text: this.getText("buttons.close"),
-			press: () => {
-				dialog.destroyContent();
-				dialog.close();
-			}});
-		dialog.setEndButton(closeButton);
+		// const closeButton = new Button({
+		// 	text: this.getText("buttons.close"),
+		// 	press: () => {
+		// 		dialog.destroyContent();
+		// 		dialog.close();
+		// 	}});
+		// dialog.setEndButton(closeButton);
 
-		dialog.addContent(this.createDialogContent());
-		dialog.setModel(new ODataModel({serviceUrl: `${CAP_BASE_MOVIE_URL}/`, operationMode: "Server"}));
+		// dialog.addContent(this.createDialogContent());
+		const localModel: JSONModel = this.getModel("suggestedQuestions") as JSONModel;
+		dialog.setModel(localModel);
 	}
 
 	public createDialogContent(): Table {
-		const scenario = this.getModel("suggestedQuestions").getProperty("/scenario/name");
-		const pathForTable = (scenario === "MOVIES") ? "/Movies": "/CapDocs";
-		const labelForDescription = (scenario === "MOVIES") ? "Plot": "Documentation";
-		const oSorter = (scenario === "MOVIES") ? new Sorter('releaseDate') : new Sorter('title');
-		const oFirstVisibleRow = (scenario === "MOVIES") ? 42 : 0;
+		// const scenario = this.getModel("suggestedQuestions").getProperty("/scenario/name");
+		const pathForTable = "/productsStatic";
+		const labelForDescription = "Products";
+		const oSorter = new Sorter('PRODUCT_ID');
+		const oFirstVisibleRow = 0;
 		const table = new Table({
 			selectionMode: 'None',
 			alternateRowColors: true,
@@ -265,41 +287,40 @@ export default abstract class BaseController extends Controller {
 			ariaLabelledBy: ["Title"],
 			rows: {
 				path: pathForTable,
-				parameters: {operationMode: 'Server'},
 				sorter: oSorter,
 			},
 			firstVisibleRow: oFirstVisibleRow,
 			visibleRowCountMode: "Auto",
 			minAutoRowCount: 15,
-			noData: new BusyIndicator({ })
+			noData: new BusyIndicator({})
 		});
 		// define title column
 		const titleColumn = new Column({
-			sortProperty: "title",
-			filterProperty: "title",
+			sortProperty: "PRODUCT_ID",
+			filterProperty: "PRODUCT_ID",
 			autoResizable: true,
 			width: "auto"
 		});
 		titleColumn.setLabel("Title");
-		titleColumn.setTemplate(new Text({ text: "{title}", wrapping: false}));
+		titleColumn.setTemplate(new Text({ text: "{PRODUCT_ID}", wrapping: false }));
 		// define releaseDate column
 		const releaseDateColumn = new Column({
-			sortProperty: "releaseDate",
-			filterProperty: "releaseDate",
+			sortProperty: "PRODUCT_NAME",
+			filterProperty: "PRODUCT_NAME",
 			autoResizable: true,
 			width: "auto"
 		});
 		releaseDateColumn.setLabel("Release Date");
-		const txt = new Text().bindText({path:"releaseDate", formatter: formatter.formatDate});
+		const txt = new Text().bindText({ path: "PRODUCT_NAME" });
 		releaseDateColumn.setTemplate(txt);
 		// define title column
 		const textColumn = new Column({
-			filterProperty: "text",
+			filterProperty: "DESCRIPTION",
 			autoResizable: true,
 			width: "60%"
 		});
 		textColumn.setLabel(labelForDescription);
-		textColumn.setTemplate(new ExpandableText({ text: "{text}", overflowMode: "Popover"}));
+		textColumn.setTemplate(new ExpandableText({ text: "{DESCRIPTION}", overflowMode: "Popover" }));
 		// add all columns to the table
 		table.addColumn(titleColumn);
 		table.addColumn(releaseDateColumn);
@@ -386,13 +407,13 @@ export default abstract class BaseController extends Controller {
 		}).then(async response => {
 			//throw new Error(endpoint);
 			if (!response.ok) {
-				const error :Error = JSON.parse(await response.text()).error;
+				const error: Error = JSON.parse(await response.text()).error;
 				console.log("xxxxx", error.message);
 				throw error;
 			}
 			return response.json();
 		}).catch(e => {
-			console.log("catching error",e)
+			console.log("catching error", e)
 			if (!this.oErrorMessageDialog) {
 				this.oErrorMessageDialog = new Dialog({
 					type: DialogType.Message,

@@ -24,25 +24,34 @@
                     expanded="true"
                     width="auto"
                     class="sapUiSmallMargin">
-                                <headerToolbar>
-                                    <OverflowToolbar>
-                                        <Title text="{= ${suggestedQuestions>/scenario/name} === 'MOVIES'? ${i18n>movie.questionSelection} : ${i18n>cap.questionSelection}}" />
-                                        <ToolbarSpacer />
-                                        <Button
-                                            icon="sap-icon://database"
-                                            text="{= ${suggestedQuestions>/scenario/name} === 'MOVIES'? ${i18n>movie.browse} : ${i18n>cap.browse}}"
-                                            press="onOpenMovieList"
-                                        />
-                                    </OverflowToolbar>
-                                </headerToolbar>
+                        <headerToolbar>
+                            <OverflowToolbar>
+                                <Title text="{= ${suggestedQuestions>/scenario/name} === 'MOVIES'? ${i18n>movie.questionSelection} : ${i18n>cap.questionSelection}}" />
+                                <ToolbarSpacer />
+                                <Button
+                                    icon="sap-icon://database"
+                                    text="{= ${suggestedQuestions>/scenario/name} === 'MOVIES'? ${i18n>movie.browse} : ${i18n>cap.browse}}"
+                                    press="onOpenMovieList"
+                                />
+                            </OverflowToolbar>
+                        </headerToolbar>
                     <content>
+                        <Input
+                            id="productInput"
+                            type="Text"
+                            placeholder="Enter Product ..."
+                            showValueHelp="true"
+                            valueHelpOnly="true"
+                            valueHelpRequest=".onOpenMovieList"
+                            class="sapUiSmallMarginBottom"
+                            width="15rem" />
                         <f:GridList
                             id="StandardSelectList"
                                                 items="{suggestedQuestions>/scenario/prompts}"
                                                 width="auto"
                             class="sapUiResponsiveMargin"
                             busy="{suggestedQuestions>/standard/ragAnswerListItemIsBusy}"
-                        >
+                            >
                             <f:customLayout>
                                 <grid:GridBasicLayout
                                     gridTemplateColumns="repeat(auto-fit, minmax(12rem, 12rem))"

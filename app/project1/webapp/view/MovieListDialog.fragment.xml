@@ -1,10 +1,33 @@
 <core:FragmentDefinition
-	xmlns:m="sap.m"
-	xmlns="sap.ui.table"
+	xmlns="sap.m"
 	xmlns:core="sap.ui.core"
 	core:require="{ formatter:
 	'project1/model/formatter' }">
-	<m:Dialog id="MovieListDialog" title="{=${suggestedQuestions>/scenario/name} === 'MOVIES' ? ${i18n>movieList.title} + ' (' + ${/Movies/$count} + ')' : ${i18n>capList.title} + ' (' + ${/CapDocs/$count} + ')'}" contentWidth="80%" resizable="true" draggable="true" verticalScrolling="false">
+		<SelectDialog
+			id="MovieListDialog"
+			noDataText="No Products Found"
+			title="Select Product"
+			search=".onSearch"
+			searchPlaceholder="Search Products"
+			confirm=".onValueHelpDialogClose"
+			cancel=".onValueHelpDialogClose"
+			showClearButton="true"
+			items="{
+				path: '/productsStatic',
+				sorter: {
+					path: 'PRODUCT_NAME',
+					descending: false
+				}
+			}">
+			<StandardListItem
+				selected="{selected}"
+				title="{PRODUCT_NAME}"
+				description="{DESCRIPTION}"
+				iconDensityAware="false"
+				iconInset="false"
+				type="Active" />
+		</SelectDialog>
+	<!-- <m:Dialog id="MovieListDialog" title="Products" contentWidth="80%" resizable="true" draggable="true" verticalScrolling="false"> -->
 		<!-- <m:content>
 			<Table
 				id="table"
@@ -63,5 +86,5 @@
 				</columns>
 			</Table>
 		</m:content> -->
-	</m:Dialog>
+	<!-- </m:Dialog> -->
 </core:FragmentDefinition>
