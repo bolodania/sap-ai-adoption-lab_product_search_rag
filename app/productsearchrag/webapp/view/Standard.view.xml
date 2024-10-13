@@ -23,7 +23,7 @@
                 vertical="true"
                 focusable="true"
                 >
-                <layoutData><l:SplitterLayoutData size="70%" resizable="false" /></layoutData>
+                <layoutData><l:SplitterLayoutData size="60%" resizable="false" /></layoutData>
                 <Panel
                     id="StandardPromptSelectPanel"
                     expandable="false"
