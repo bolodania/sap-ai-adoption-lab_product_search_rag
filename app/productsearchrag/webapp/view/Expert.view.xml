@@ -1,5 +1,5 @@
 <mvc:View
-    controllerName="project1.controller.Expert"
+    controllerName="productsearchrag.controller.Expert"
     displayBlock="true"
     height="100%"
     xmlns:t="sap.ui.table"
@@ -9,7 +9,7 @@
     xmlns:grid="sap.ui.layout.cssgrid"
     xmlns:f="sap.f"
     xmlns:core="sap.ui.core"
-    core:require="{ formatter: 'project1/model/formatter' }"
+    core:require="{ formatter: 'productsearchrag/model/formatter' }"
 >
 	<Page showFooter="true" showHeader="false" enableScrolling="false">
     <l:Splitter id="splitterLayout">
@@ -333,7 +333,7 @@
             </Panel>
         </ScrollContainer>
         <core:Fragment
-            fragmentName="project1.view.GraphRepresentation"
+            fragmentName="productsearchrag.view.GraphRepresentation"
             type="XML"
         />
     </l:Splitter>

@@ -1,5 +1,5 @@
 <mvc:View
-    controllerName="project1.controller.Standard"
+    controllerName="productsearchrag.controller.Standard"
     displayBlock="true"
     height="100%"
     xmlns:core="sap.ui.core"
@@ -11,11 +11,11 @@
 >
     
 	<Page showFooter="true" showHeader="false" enableScrolling="false">
-        <customHeader>
+        <!-- <customHeader>
             <f:ShellBar
                 title="SAP HANA Cloud Vector Engine"
                 homeIcon="images/sap-logo.svg" />
-        </customHeader>
+        </customHeader> -->
         <l:Splitter id="splitterLayout">
             <ScrollContainer
                 width="100%"
@@ -125,17 +125,17 @@
                         <OverflowToolbar>
                             <Title text="{i18n>questionInput}" />
                             <ToolbarSpacer />
-                                            <Select
-                                                selectedKey="{suggestedQuestions>/scenario/standard/selectedModel}"
-                                                items="{suggestedQuestions>/models}"
-                                                busy="{suggestedQuestions>/standard/ragAnswerListItemIsBusy}"
-                                            >
-                                                <core:ListItem
-                                                    key="{suggestedQuestions>name}"
-                                                    text="{suggestedQuestions>name}"
-                                                    icon="{suggestedQuestions>icon}"
-                                                />
-                                            </Select>
+                            <Select
+                                selectedKey="{suggestedQuestions>/scenario/standard/selectedModel}"
+                                items="{suggestedQuestions>/models}"
+                                busy="{suggestedQuestions>/standard/ragAnswerListItemIsBusy}"
+                            >
+                                <core:ListItem
+                                    key="{suggestedQuestions>name}"
+                                    text="{suggestedQuestions>name}"
+                                    icon="{suggestedQuestions>icon}"
+                                />
+                            </Select>
                             <Button
                                 icon="sap-icon://error"
                                 text="Cancel"
@@ -197,10 +197,10 @@
                     </content>
                 </Panel>
             </ScrollContainer>
-            <core:Fragment fragmentName="project1.view.GraphRepresentation" type="XML" />
+            <core:Fragment fragmentName="productsearchrag.view.GraphRepresentation" type="XML" />
         </l:Splitter>
 		<footer>
-			<OverflowToolbar>
+			<!-- <OverflowToolbar>
 				<ToolbarSpacer/>
 
 				<Text
@@ -210,7 +210,7 @@
 					target="_blank"
 					href="{= ${suggestedQuestions>/scenario/name} === 'MOVIES'? 'https://en.wikipedia.org/wiki/Lists_of_American_films' : 'https://github.com/cap-js/docs'}"/>
 				<ToolbarSpacer/>
-			</OverflowToolbar>
+			</OverflowToolbar> -->
 		</footer>
 	</Page>
 </mvc:View>

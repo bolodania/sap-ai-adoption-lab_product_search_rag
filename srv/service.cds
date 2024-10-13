@@ -10,7 +10,7 @@ service GenAIService {
         };
 
     action connectToGenAI(prompt : String,
-                          limit : String,
+                          chatModelName : String,
                           withRAG : Boolean) returns String;
 
 }

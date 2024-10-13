@@ -37,17 +37,24 @@
     "undeploy": "cf undeploy product_search_rag --delete-services --delete-service-keys --delete-service-brokers",
     "build": "rimraf resources mta_archives && mbt build --mtar archive",
     "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
-    "watch-project1": "cds watch --open project1/index.html?sap-ui-xx-viewCache=false --livereload false"
+    "watch-productsearchrag": "cds watch --open productsearchrag/index.html?sap-ui-xx-viewCache=false --livereload false"
   },
   "cds": {
     "requires": {
       "gen-ai-hub": {
-        "gpt-4": {
+        "gpt-4o": {
           "destinationName": "GenAIHubDestination",
           "deploymentUrl": "/v2/inference/deployments/da70c8094b72706c",
           "resourceGroup": "default",
           "apiVersion": "2024-02-15-preview",
           "modelName": "gpt-4o"
+        },
+        "gpt-35-turbo": {
+          "destinationName": "GenAIHubDestination",
+          "deploymentUrl": "/v2/inference/deployments/dc5d09cd17c28458",
+          "resourceGroup": "default",
+          "apiVersion": "2024-02-01",
+          "modelName": "gpt-35-turbo"
         },
         "text-embedding-ada-002": {
           "destinationName": "GenAIHubDestination",

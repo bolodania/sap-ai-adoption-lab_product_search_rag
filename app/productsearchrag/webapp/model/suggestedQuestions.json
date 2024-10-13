@@ -35,16 +35,16 @@
 	},
 	"models": [
 		{
-			"name": "GPT-4",
+			"name": "GPT-4o",
 			"description": "GPT-4 is great",
 			"icon": "sap-icon://ai",
-			"value": "CHATGPT4"
+			"value": "gpt-4o"
 		},
 		{
 			"name": "GPT-3.5-turbo",
 			"description": "GPT-3.5-turbo is great",
 			"icon": "sap-icon://ai",
-			"value": "CHATGPT35"
+			"value": "gpt-35-turbo"
 		}
 	],
 	"standard": {

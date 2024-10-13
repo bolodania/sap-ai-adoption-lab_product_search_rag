@@ -7,6 +7,7 @@ import ResourceBundle from "sap/base/i18n/ResourceBundle";
 import Router from "sap/ui/core/routing/Router";
 import History from "sap/ui/core/routing/History";
 import Dialog from "sap/m/Dialog";
+import MessageBox from "sap/m/MessageBox";
 import SelectDialog from "sap/m/SelectDialog";
 import Text from "sap/m/Text";
 import Button from "sap/m/Button";
@@ -31,7 +32,7 @@ export const CAP_BASE_URL = "api/odata/v4/reference-documents";
 export const CAP_BASE_MOVIE_URL: string = "movie-api/odata/v4/movies";
 
 /**
- * @namespace project1.controller
+ * @namespace productsearchrag.controller
  */
 export default abstract class BaseController extends Controller {
 	private createGetLinePopover: Popover;
@@ -259,7 +260,7 @@ export default abstract class BaseController extends Controller {
 
 		this.movieListDialog = (await Fragment.load({
 			id: "MovieListDialog" + version,
-			name: "project1.view.MovieListDialog",
+			name: "productsearchrag.view.MovieListDialog",
 			controller: this
 		})) as SelectDialog;
 		const dialog = this.movieListDialog as SelectDialog;
@@ -441,6 +442,77 @@ export default abstract class BaseController extends Controller {
 		return response;
 	}
 
+	public async connectToGenAI(endpoint: string, payload: any) {
+		this.controller = new AbortController();
+		this.signal = this.controller.signal;
+		// const response = await fetch(`${CAP_BASE_MOVIE_URL}/${endpoint}`, {
+		// 	signal: this.signal,
+		// 	method: "POST",
+		// 	headers: {
+		// 		"X-CSRF-Token": httpHeaders["X-CSRF-Token"],
+		// 		"Content-Type": "application/json"
+		// 	},
+		// 	body: JSON.stringify(payload)
+		// }).then(async response => {
+		// 	//throw new Error(endpoint);
+		// 	if (!response.ok) {
+		// 		const error: Error = JSON.parse(await response.text()).error;
+		// 		console.log("xxxxx", error.message);
+		// 		throw error;
+		// 	}
+		// 	return response.json();
+		// }).catch(e => {
+		// 	console.log("catching error", e)
+		// 	if (!this.oErrorMessageDialog) {
+		// 		this.oErrorMessageDialog = new Dialog({
+		// 			type: DialogType.Message,
+		// 			title: "Error",
+		// 			state: ValueState.Error,
+		// 			content: new Text({ text: e.message }),
+		// 			beginButton: new Button({
+		// 				type: ButtonType.Emphasized,
+		// 				text: "Close",
+		// 				press: function () {
+		// 					this.oErrorMessageDialog.close();
+		// 				}.bind(this)
+		// 			})
+		// 		});
+		// 	}
+		// 	this.oErrorMessageDialog.open();
+		// 	throw new Error(endpoint);
+
+		// var oModel = this.getView().getModel();
+		const oDataModel = this.getModel() as ODataModel;
+		let oActionODataContextBinding = oDataModel.bindContext(endpoint);
+		oActionODataContextBinding.setParameter("prompt", payload.text);
+		oActionODataContextBinding.setParameter("chatModelName", payload.model);
+		oActionODataContextBinding.setParameter("withRAG", payload.withRAG);
+
+		var that = this;
+
+		let response = "";
+		await oActionODataContextBinding.execute().then(
+			function () {
+				var oActionContext = oActionODataContextBinding.getBoundContext();
+				console.log(oActionContext.getObject().value);
+				response = oActionContext.getObject().value;
+			},
+			function (oError) {
+				// oGlobalBusyDialog.close();
+				// that.byId("table0").setVisible(false);
+				// that.byId("im").setVisible(true);
+				MessageBox.alert(oError.message, {
+					icon: MessageBox.Icon.ERROR,
+					title: "Error"
+				});
+
+			}
+				.bind(this)
+		);
+
+		return response;
+	}
+
 	public greyOutGraphObject(graphObject: any, isWithRag: boolean, propertyToCheck: string, green?: boolean): any {
 		if (green) {
 			if (graphObject[propertyToCheck] && graphObject[propertyToCheck] === "ragGroup") {
@@ -517,7 +589,7 @@ export default abstract class BaseController extends Controller {
 	public async initCreateGetLinePopover(): Promise<void> {
 		this.createGetLinePopover = (await Fragment.load({
 			id: "getLinePopover",
-			name: "project1.view.GetLinePopover",
+			name: "productsearchrag.view.GetLinePopover",
 			controller: this
 		})) as Popover;
 		const popover = this.createGetLinePopover as Popover;

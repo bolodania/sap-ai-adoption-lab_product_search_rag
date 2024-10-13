@@ -2,7 +2,7 @@
 	xmlns="sap.m"
 	xmlns:core="sap.ui.core"
 	core:require="{ formatter:
-	'project1/model/formatter' }">
+	'productsearchrag/model/formatter' }">
 		<SelectDialog
 			id="MovieListDialog"
 			noDataText="No Products Found"

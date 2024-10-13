@@ -1,7 +1,7 @@
 {
   "_version": "1.65.0",
   "sap.app": {
-    "id": "project1",
+    "id": "productsearchrag",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -17,11 +17,24 @@
     },
     "dataSources": {
       "mainService": {
-        "uri": "/service/genAI/",
+        "uri": "service/genAI/",
         "type": "OData",
         "settings": {
           "annotations": [],
           "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "product_search_rag-search": {
+          "semanticObject": "productsearchrag",
+          "action": "search",
+          "title": "{{flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
         }
       }
     }
@@ -48,7 +61,9 @@
       "minUI5Version": "1.129.2",
       "libs": {
         "sap.m": {},
-        "sap.ui.core": {}
+        "sap.ui.core": {},
+        "sap.f": {},
+        "sap.ui.layout": {}
       }
     },
     "contentDensities": {
@@ -59,7 +74,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "project1.i18n.i18n"
+          "bundleName": "productsearchrag.i18n.i18n"
         }
       },
       "": {
@@ -88,15 +103,15 @@
       "config": {
         "routerClass": "sap.m.routing.Router",
         "viewType": "XML",
-        "viewPath": "project1.view",
+        "async": true,
+        "viewPath": "productsearchrag.view",
         "controlAggregation": "pages",
         "controlId": "app",
-        "transition": "no",
-        "async": true
+        "clearControlAggregation": false
       },
       "routes": [
         {
-          "pattern": "",
+          "pattern": ":?query:",
           "name": "standard",
           "target": [
             "standard"
@@ -119,6 +134,9 @@
       ],
       "targets": {
         "standard": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
           "viewId": "standard",
           "viewName": "Standard"
         },
@@ -129,7 +147,7 @@
       }
     },
     "rootView": {
-      "viewName": "project1.view.App",
+      "viewName": "productsearchrag.view.App",
       "type": "XML",
       "async": true,
       "id": "App"

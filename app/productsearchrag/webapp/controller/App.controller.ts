@@ -10,7 +10,7 @@ import { EXPERTMODEL } from "../model/expert";
 import MessageToast from "sap/m/MessageToast";
 
 /**
- * @namespace project1.controller
+ * @namespace productsearchrag.controller
  */
 export default class App extends BaseController {
     private createGetHelpPopover: Popover;
@@ -87,7 +87,7 @@ export default class App extends BaseController {
     public async initCreateGetHelpPopover(): Promise<void> {
         this.createGetHelpPopover = (await Fragment.load({
             id: "getHelpPopover",
-            name: "project1.view.GetHelpPopover",
+            name: "productsearchrag.view.GetHelpPopover",
             controller: this
         })) as Popover;
         const popover = this.createGetHelpPopover as Popover;
@@ -97,7 +97,7 @@ export default class App extends BaseController {
     public async initCreateGetScenariosPopover(): Promise<void> {
         this.createGetScenariosPopover = (await Fragment.load({
             id: "getScenariosPopover",
-            name: "project1.view.GetScenariosPopover",
+            name: "productsearchrag.view.GetScenariosPopover",
             controller: this
         })) as Popover;
         const popover = this.createGetScenariosPopover as Popover;
