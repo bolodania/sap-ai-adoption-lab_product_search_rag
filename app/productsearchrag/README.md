@@ -9,7 +9,7 @@
 |**Service Type**<br>Local Cap|
 |**Service URL**<br>http://localhost:4004/service/genAI/|
 |**Module Name**<br>productsearchrag|
-|**Application Title**<br>App Title|
+|**Application Title**<br>Product Search RAG|
 |**Namespace**<br>|
 |**UI5 Theme**<br>sap_horizon|
 |**UI5 Version**<br>1.129.2|
