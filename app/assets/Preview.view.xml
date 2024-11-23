@@ -16,7 +16,7 @@
     <l:BlockLayout>
         <l:BlockLayoutRow>
             <l:BlockLayoutCell
-                title="product_search_rag"
+                title="product_search_rag_xx"
                 titleAlignment="Left"
                 class="customCellImageBackground">
                 <VBox>

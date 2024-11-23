@@ -8,7 +8,7 @@
         {
             "source": "^/service/genAI/(.*)$",
             "target": "/service/genAI/$1",
-            "destination": "product_search_rag-app-srv",
+            "destination": "product_search_rag_xx-app-srv",
             "authenticationType": "xsuaa"
         },
         {

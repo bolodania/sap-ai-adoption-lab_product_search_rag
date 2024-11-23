@@ -32,7 +32,7 @@
       }
     },
     {
-      "label": "PreLaunchTask for Run product_search_rag",
+      "label": "PreLaunchTask for Run product_search_rag_xx",
       "type": "process",
       "command": "npx",
       "args": [
@@ -48,20 +48,24 @@
     },
     {
       "type": "dpt.ptdeploy",
-      "label": "Deploy product_search_rag",
-      "taskType": "Deploy"
+      "label": "Deploy product_search_rag_xx",
+      "taskType": "Deploy",
+      "ui5version": "1.128.0",
+      "ui5theme": "sap_horizon_hcb",
+      "vendorDependency": false,
+      "buildCodeServicePlan": false
     },
     {
       "type": "dpt.ptdeploy",
-      "label": "Enable Discovery and Deploy product_search_rag",
+      "label": "Enable Discovery and Deploy product_search_rag_xx",
       "taskType": "Deploy",
       "enableDiscovery": "true"
     },
     {
       "type": "build.mta",
-      "label": "Template: Build MTA: product_search_rag - PT",
+      "label": "Template: Build MTA: product_search_rag_xx - PT",
       "taskType": "Build",
-      "projectPath": "/home/user/projects/product_search_rag",
+      "projectPath": "/home/user/projects/product_search_rag_xx",
       "extensions": []
     }
   ]

@@ -1,8 +1,8 @@
 {
-    "CATALOG_UPDATED_DEV_1_DBADMIN": {
+    "CATALOG_UPDATED_DEV_1_RMILLERXX": {
         "target": {
-            "object": "CATALOG_UPDATED_DEV_1_DBADMIN",
-            "schema": "DBADMIN"
+            "object": "CATALOG_UPDATED_DEV_1_RMILLERXX",
+            "schema": "RMILLERXX"
         }
     }
 }

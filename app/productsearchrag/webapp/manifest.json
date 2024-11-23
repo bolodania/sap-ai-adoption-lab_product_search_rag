@@ -27,7 +27,7 @@
     },
     "crossNavigation": {
       "inbounds": {
-        "product_search_rag-search": {
+        "product_search_rag_xx-search": {
           "semanticObject": "productsearchrag",
           "action": "search",
           "title": "{{flpTitle}}",
@@ -155,6 +155,6 @@
   },
   "sap.cloud": {
     "public": true,
-    "service": "lcap.product_search_rag"
+    "service": "lcap.product_search_rag_xx"
   }
 }

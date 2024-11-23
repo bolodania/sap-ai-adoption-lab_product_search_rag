@@ -1,10 +1,10 @@
 {
-    "ups_product-search-rag": {
+    "ups_RMILLERXX": {
         "object_owner": {
             "object_privileges": [
                 {
-                    "schema": "DBADMIN",
-                    "name": "CATALOG_UPDATED_DEV_1_DBADMIN",
+                    "schema": "RMILLERXX",
+                    "name": "CATALOG_UPDATED_DEV_1_RMILLERXX",
                     "privileges_with_grant_option": [
                         "SELECT"
                     ]
@@ -14,8 +14,8 @@
         "application_user": {
             "object_privileges": [
                 {
-                    "schema": "DBADMIN",
-                    "name": "CATALOG_UPDATED_DEV_1_DBADMIN",
+                    "schema": "RMILLERXX",
+                    "name": "CATALOG_UPDATED_DEV_1_RMILLERXX",
                     "privileges": [
                         "SELECT"
                     ]

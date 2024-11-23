@@ -1,7 +1,6 @@
+[36m[cds-plugin-ui5][0m [32m[info][0m Running cds-plugin-ui5@0.9.8 (@sap/cds-dk@8.4.2, @sap/cds@7.9.4)
 {
   "scopes": [],
   "attributes": [],
-  "role-templates": [],
-  "xsappname": "product_search_rag",
-  "tenant-mode": "dedicated"
+  "role-templates": []
 }
