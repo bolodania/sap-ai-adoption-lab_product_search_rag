@@ -5,9 +5,12 @@ _out
 connection.properties
 default-*.json
 .cdsrc-private.json
+.-lock.json
 gen/
 node_modules/
 target/
+.application_summary
+.vscode
 
 # Web IDE, App Studio
 .che/
