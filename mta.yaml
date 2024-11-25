@@ -1,9 +1,9 @@
 _schema-version: "3.1"
-ID: product_search_rag_xx
+ID: product_search_rag_92
 description: A simple CAP project.
 version: 1.0.1
 modules:
-  - name: product_search_rag_xx-db-deployer
+  - name: product_search_rag_92-db-deployer
     type: hdb
     path: gen/db
     parameters:
@@ -19,18 +19,18 @@ modules:
         properties:
           key: ServiceName_1
           service: ~{the-service-name}
-      # - name: product_search_rag_xx-service-uaa
-      - name: product_search_rag_xx-service-db
-  - name: product_search_rag_xx-srv
+      # - name: product_search_rag_92-service-uaa
+      - name: product_search_rag_92-service-db
+  - name: product_search_rag_92-srv
     type: nodejs
     path: gen/srv
     requires:
-      - name: product_search_rag_xx-service-uaa
-      - name: product_search_rag_xx-service-db
-      - name: product_search_rag_xx-service-destination
-      - name: product_search_rag_xx-service-metadata
-      - name: product_search_rag_xx-service-connectivity
-      - name: product_search_rag_xx-service-logs
+      - name: product_search_rag_92-service-uaa
+      - name: product_search_rag_92-service-db
+      - name: product_search_rag_92-service-destination
+      - name: product_search_rag_92-service-metadata
+      - name: product_search_rag_92-service-connectivity
+      - name: product_search_rag_92-service-logs
     provides:
       - name: srv-api
         properties:
@@ -42,19 +42,19 @@ modules:
       ignore:
         - node_modules
         - package-lock.json
-  - name: product_search_rag_xx-aux-destinations
+  - name: product_search_rag_92-aux-destinations
     type: com.sap.application.content
     requires:
-      - name: product_search_rag_xx-service-uaa
+      - name: product_search_rag_92-service-uaa
         parameters:
           service-key:
-            name: product_search_rag_xx-uaa-key
+            name: product_search_rag_92-uaa-key
       - name: srv-api
-      - name: product_search_rag_xx-service-html5-apps-repo-host
+      - name: product_search_rag_92-service-html5-apps-repo-host
         parameters:
           service-key:
-            name: product_search_rag_xx-html5-apps-repo-host-key
-      - name: product_search_rag_xx-service-destination
+            name: product_search_rag_92-html5-apps-repo-host-key
+      - name: product_search_rag_92-service-destination
         parameters:
           content-target: true
     parameters:
@@ -62,37 +62,37 @@ modules:
         subaccount:
           destinations:
             - Authentication: OAuth2UserTokenExchange
-              Name: product_search_rag_xx-service-uaa
-              ServiceInstanceName: product_search_rag_xx-uaa
-              ServiceKeyName: product_search_rag_xx-uaa-key
-              sap.cloud.service: lcap.product_search_rag_xx
+              Name: product_search_rag_92-service-uaa
+              ServiceInstanceName: product_search_rag_92-uaa
+              ServiceKeyName: product_search_rag_92-uaa-key
+              sap.cloud.service: lcap.product_search_rag_92
             - Authentication: OAuth2UserTokenExchange
-              Name: product_search_rag_xx-app-srv
-              TokenServiceInstanceName: product_search_rag_xx-uaa
-              TokenServiceKeyName: product_search_rag_xx-uaa-key
+              Name: product_search_rag_92-app-srv
+              TokenServiceInstanceName: product_search_rag_92-uaa
+              TokenServiceKeyName: product_search_rag_92-uaa-key
               URL: ~{srv-api/srv-url}
-              sap.cloud.service: lcap.product_search_rag_xx
-            - Name: product_search_rag_xx-service-html5-apps-repo-host
-              ServiceInstanceName: product_search_rag_xx-html5-apps-repo-host
-              ServiceKeyName: product_search_rag_xx-html5-apps-repo-host-key
-              sap.cloud.service: lcap.product_search_rag_xx
+              sap.cloud.service: lcap.product_search_rag_92
+            - Name: product_search_rag_92-service-html5-apps-repo-host
+              ServiceInstanceName: product_search_rag_92-html5-apps-repo-host
+              ServiceKeyName: product_search_rag_92-html5-apps-repo-host-key
+              sap.cloud.service: lcap.product_search_rag_92
             - AppgyverEnabled: false
               Authentication: OAuth2UserTokenExchange
               HTML5.DynamicDestination: false
               MobileEnabled: false
-              Name: product_search_rag_xx-GenAIService
-              TokenServiceInstanceName: product_search_rag_xx-uaa
-              TokenServiceKeyName: product_search_rag_xx-uaa-key
+              Name: product_search_rag_92-GenAIService
+              TokenServiceInstanceName: product_search_rag_92-uaa
+              TokenServiceKeyName: product_search_rag_92-uaa-key
               URL: ~{srv-api/srv-url}/service/genAI
               WebIDEEnabled: false
               sap.applicationdevelopment.actions.enabled: false
               sap.build.usage: CAP
-              sap.cloud.service: lcap.product_search_rag_xx
+              sap.cloud.service: lcap.product_search_rag_92
               sap.processautomation.enabled: false
           existing_destinations_policy: update
     build-parameters:
       no-source: true
-  - name: product_search_rag_xx-launchpad
+  - name: product_search_rag_92-launchpad
     type: html5
     path: build/launchpad
     build-parameters:
@@ -105,11 +105,11 @@ modules:
         - bash -c "cd dist && npx bestzip ../../../build/dist/launchpad.zip *"
         - rm -rf dist
       supported-platforms: []
-  - name: product_search_rag_xx-aux-ui-deployer
+  - name: product_search_rag_92-aux-ui-deployer
     type: com.sap.application.content
     path: build/ui-deployer
     requires:
-      - name: product_search_rag_xx-service-html5-apps-repo-host
+      - name: product_search_rag_92-service-html5-apps-repo-host
         parameters:
           content-target: true
     build-parameters:
@@ -117,7 +117,7 @@ modules:
       requires:
         - artifacts:
             - launchpad.zip
-          name: product_search_rag_xx-launchpad
+          name: product_search_rag_92-launchpad
           target-path: resources
         - artifacts:
             - productsearchrag.zip
@@ -137,10 +137,10 @@ resources:
   - name: cross_container_service
     type: org.cloudfoundry.existing-service
     parameters:
-      service-name: ups_RMILLERXX
+      service-name: ups_RMILLER92
     properties:
       the-service-name: ${service-name}
-  - name: product_search_rag_xx-service-uaa
+  - name: product_search_rag_92-service-uaa
     type: org.cloudfoundry.managed-service
     parameters:
       config:
@@ -148,18 +148,18 @@ resources:
           redirect-uris:
             - https://*.${default-domain}/login/*
         role-collections: []
-        xsappname: product_search_rag_xx-${space}
+        xsappname: product_search_rag_92-${space}
       path: xs-security.json
       service: xsuaa
-      service-name: product_search_rag_xx-uaa
+      service-name: product_search_rag_92-uaa
       service-plan: application
-  - name: product_search_rag_xx-service-db
+  - name: product_search_rag_92-service-db
     type: org.cloudfoundry.managed-service
     parameters:
       service: hana
-      service-name: product_search_rag_xx-db
+      service-name: product_search_rag_92-db
       service-plan: hdi-shared
-  - name: product_search_rag_xx-service-destination
+  - name: product_search_rag_92-service-destination
     type: org.cloudfoundry.managed-service
     parameters:
       config:
@@ -175,33 +175,33 @@ resources:
             existing_destinations_policy: update
         version: 1.0.0
       service: destination
-      service-name: product_search_rag_xx-destination
+      service-name: product_search_rag_92-destination
       service-plan: lite
-  - name: product_search_rag_xx-service-metadata
+  - name: product_search_rag_92-service-metadata
     type: org.cloudfoundry.user-provided-service
     parameters:
       config:
         default-domain: ${default-domain}
       service: metadata
-      service-name: product_search_rag_xx-metadata
+      service-name: product_search_rag_92-metadata
       service-plan: standard
-  - name: product_search_rag_xx-service-connectivity
+  - name: product_search_rag_92-service-connectivity
     type: org.cloudfoundry.managed-service
     parameters:
       service: connectivity
-      service-name: product_search_rag_xx-connectivity
+      service-name: product_search_rag_92-connectivity
       service-plan: lite
-  - name: product_search_rag_xx-service-logs
+  - name: product_search_rag_92-service-logs
     type: org.cloudfoundry.managed-service
     parameters:
       service: application-logs
-      service-name: product_search_rag_xx-logs
+      service-name: product_search_rag_92-logs
       service-plan: lite
-  - name: product_search_rag_xx-service-html5-apps-repo-host
+  - name: product_search_rag_92-service-html5-apps-repo-host
     type: org.cloudfoundry.managed-service
     parameters:
       service: html5-apps-repo
-      service-name: product_search_rag_xx-html5-apps-repo-host
+      service-name: product_search_rag_92-html5-apps-repo-host
       service-plan: app-host
 parameters:
   deploy_mode: html5-repo

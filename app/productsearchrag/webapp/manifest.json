@@ -17,7 +17,7 @@
     },
     "dataSources": {
       "mainService": {
-        "uri": "service/genAI/",
+        "uri": "/service/genAI/",
         "type": "OData",
         "settings": {
           "annotations": [],
@@ -27,7 +27,7 @@
     },
     "crossNavigation": {
       "inbounds": {
-        "product_search_rag_xx-search": {
+        "product_search_rag_92-search": {
           "semanticObject": "productsearchrag",
           "action": "search",
           "title": "{{flpTitle}}",
@@ -155,6 +155,6 @@
   },
   "sap.cloud": {
     "public": true,
-    "service": "lcap.product_search_rag_xx"
+    "service": "lcap.product_search_rag_92"
   }
 }

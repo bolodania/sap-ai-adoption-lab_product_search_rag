@@ -1,5 +1,5 @@
 {
-  "ProjectOverviewURL": "https://integrationworkshop-fzhq66fs.launchpad.cfapps.eu10.hana.ondemand.com/lcapproduct_search_rag_xx.product_search_rag_xxLaunchpad-1.0.0/",
+  "ProjectOverviewURL": "https://integrationworkshop-fzhq66fs.launchpad.cfapps.eu10.hana.ondemand.com/lcapproduct_search_rag_92.product_search_rag_92Launchpad-1.0.0/",
   "DeployedUTCTime": "2024-10-13T22:06:43.556Z",
-  "ApplicationLogURL": "https://logs.cf.eu10.hana.ondemand.com/app/dashboards#/view/Overview?_g=(filters:!((query:(match_phrase:(component_name:product_search_rag_xx-srv)))))"
+  "ApplicationLogURL": "https://logs.cf.eu10.hana.ondemand.com/app/dashboards#/view/Overview?_g=(filters:!((query:(match_phrase:(component_name:product_search_rag_92-srv)))))"
 }

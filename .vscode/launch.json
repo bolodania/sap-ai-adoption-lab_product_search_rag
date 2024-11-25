@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Run product_search_rag_xx",
+      "name": "Run product_search_rag_92",
       "runtimeExecutable": "cds",
       "request": "launch",
       "args": [
@@ -13,10 +13,10 @@
       "internalConsoleOptions": "openOnSessionStart",
       "type": "pwa-node",
       "cwd": "${workspaceFolder}",
-      "preLaunchTask": "PreLaunchTask for Run product_search_rag_xx",
+      "preLaunchTask": "PreLaunchTask for Run product_search_rag_92",
       "envFile": "${workspaceFolder}/env/.env1",
       "env": {
-        "run.config": "{\"handlerId\":\"lcap_run_config_handler_id\",\"runnableId\":\"{\\\"projectPath\\\":\\\"/home/user/projects/product_search_rag_xx\\\",\\\"profileName\\\":\\\"\\\"}\"}"
+        "run.config": "{\"handlerId\":\"lcap_run_config_handler_id\",\"runnableId\":\"{\\\"projectPath\\\":\\\"/home/user/projects/product_search_rag_92\\\",\\\"profileName\\\":\\\"\\\"}\"}"
       }
     }
   ]

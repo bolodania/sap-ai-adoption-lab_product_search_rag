@@ -1,43 +1,7 @@
-//define the destination created in BTP cockpit
-const AI_CORE_DESTINATION = "PROVIDER_AI_CORE_DESTINATION_HUB";
 
-//define the API Version of the LLM model
-const API_VERSION = process.env["AI_CORE_API_VERSION"] || "2024-08-06";
-
-const tableName = 'CATALOG_UPDATED_DEV_1_RMILLERXX';
+const tableName = 'CATALOG_UPDATED_DEV_1_RMILLER92';
 const embeddingColumn = 'VEC_VECTOR';
 const contentColumn = 'VEC_TEXT';
-
-// const systemPrompt =
-//     `
-//     use the following pieces of context enclosed in triple quotes to answer the question at the end. If you don't know the answer,
-//     just say you don't know, don't try to make up an answer. Format the results in a list of JSON items with the following keys:
-
-//         "PRODUCT_ID", 
-//         "PRODUCT_NAME",
-//         "CATEGORY",
-//         "DESCRIPTION",
-//         "UNIT_PRICE",
-//         "UNIT_MEASURE",
-//         "SUPPLIER_ID",
-//         "SUPPLIER_NAME",
-//         "LEAD_TIME_DAYS",
-//         "MIN_ORDER",
-//         "CURRENCY",
-//         "SUPPLIER_COUNTRY",
-//         "SUPPLIER_ADDRESS",
-//         "SUPPLIER_CITY",
-//         "CITY_LAT",
-//         "CITY_LONG",
-//         "RATING"
-
-//     The 'RATING' key value is an integer datatype ranging from 0 stars to 5 stars. Where 0 stars is 'bad' and 5 stars is 'excellent'.
-
-//     Do not include json markdown codeblock syntax in the results for example: \`\`\`json\`\`\`.
-
-//     Example of JSON data is: [{"color":"red","value":"#f00"},{"color":"green","value":"#0f0"}]
-
-// `;
 
 const systemPrompt =
     `

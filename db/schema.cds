@@ -1,7 +1,7 @@
 namespace catalog;
 
 @cds.persistence.exists
-entity UPDATED_DEV_1_RMILLERXX {
+entity UPDATED_DEV_1_RMILLER92 {
   VEC_META : String;
   VEC_TEXT  : LargeString;
   VEC_VECTOR   : cds.Vector;
