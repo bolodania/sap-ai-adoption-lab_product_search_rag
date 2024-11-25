@@ -1,5 +1,5 @@
 
-const tableName = 'CATALOG_UPDATED_DEV_1_RMILLER92';
+const tableName = 'CATALOG_UPDATED_DEV_1_RMILLERYOUR_NUMBER';
 const embeddingColumn = 'VEC_VECTOR';
 const contentColumn = 'VEC_TEXT';
 

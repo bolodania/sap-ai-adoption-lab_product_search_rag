@@ -1,10 +1,10 @@
 {
-    "ups_RMILLER92": {
+    "ups_RMILLERYOUR_NUMBER": {
         "object_owner": {
             "object_privileges": [
                 {
-                    "schema": "RMILLER92",
-                    "name": "CATALOG_UPDATED_DEV_1_RMILLER92",
+                    "schema": "RMILLERYOUR_NUMBER",
+                    "name": "CATALOG_UPDATED_DEV_1_RMILLERYOUR_NUMBER",
                     "privileges_with_grant_option": [
                         "SELECT"
                     ]
@@ -14,8 +14,8 @@
         "application_user": {
             "object_privileges": [
                 {
-                    "schema": "RMILLER92",
-                    "name": "CATALOG_UPDATED_DEV_1_RMILLER92",
+                    "schema": "RMILLERYOUR_NUMBER",
+                    "name": "CATALOG_UPDATED_DEV_1_RMILLERYOUR_NUMBER",
                     "privileges": [
                         "SELECT"
                     ]
