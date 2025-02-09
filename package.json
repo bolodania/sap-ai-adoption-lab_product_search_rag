@@ -49,13 +49,6 @@
           "apiVersion": "2024-02-15-preview",
           "modelName": "gpt-4o"
         },
-        "gpt-35-turbo": {
-          "destinationName": "GenAIHubDestination",
-          "deploymentUrl": "/v2/inference/deployments/YOUR_GPT35_MODEL_ID",
-          "resourceGroup": "userYOUR_NUMBER-l2o-rg",
-          "apiVersion": "2024-02-01",
-          "modelName": "gpt-35-turbo"
-        },
         "text-embedding-ada-002": {
           "destinationName": "GenAIHubDestination",
           "deploymentUrl": "/v2/inference/deployments/YOUR_EMBEDDING_MODEL_ID",

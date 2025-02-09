@@ -13,35 +13,24 @@ import Text from "sap/m/Text";
 import Button from "sap/m/Button";
 import JSONModel from "sap/ui/model/json/JSONModel";
 import ODataModel from "sap/ui/model/odata/v4/ODataModel";
-import OperationMode from "sap/ui/model/odata/OperationMode";
 import Fragment from "sap/ui/core/Fragment";
 import { INITIAL_GRAPH } from "../model/graphModel";
-import MessageStrip from "sap/m/MessageStrip";
-import { ButtonType, DialogType } from "sap/m/library";
-import { ValueState } from "sap/ui/core/library";
-import Table, { Table$CellClickEvent } from "sap/ui/table/Table";
+import Table from "sap/ui/table/Table";
 import Column from "sap/ui/table/Column";
 import BusyIndicator from "sap/m/BusyIndicator";
-import formatter from "../model/formatter";
 import Popover from "sap/m/Popover";
 import ExpandableText from "sap/m/ExpandableText";
 import Sorter from "sap/ui/model/Sorter";
-
-
-export const CAP_BASE_URL = "api/odata/v4/reference-documents";
-export const CAP_BASE_MOVIE_URL: string = "movie-api/odata/v4/movies";
 
 /**
  * @namespace productsearchrag.controller
  */
 export default abstract class BaseController extends Controller {
 	private createGetLinePopover: Popover;
-	private showTableCellContentDialog: Dialog;
-	private oErrorMessageDialog: Dialog;
 	private resourceBundle: ResourceBundle;
 	public controller: AbortController;
 	public signal: AbortSignal;
-	public movieListDialog: SelectDialog;
+	public productListDialog: SelectDialog;
 	public graphObjects: any = {
 		naturalPromptDone: {
 			"node": {
@@ -101,16 +90,8 @@ export default abstract class BaseController extends Controller {
 	};
 
 	public onInit(): void {
-		// const model: JSONModel = new JSONModel("../model/suggestedQuestions.json");
 		const model: JSONModel = this.getModel("suggestedQuestions") as JSONModel;
 		this.setModel(model, 'suggestedQuestions');
-	}
-
-	public async onInfoMaterialSelect(event: Event): Promise<void> {
-		const modelPath = event.getSource().getBindingContextPath()
-		const localModel: JSONModel = this.getModel("suggestedQuestions") as JSONModel;
-		const url = localModel.getProperty(modelPath).url
-		window.open(url, '_blank');
 	}
 
 	/**
@@ -152,15 +133,6 @@ export default abstract class BaseController extends Controller {
 	 */
 	public getModel(sName?: string): Model {
 		return this.getView().getModel(sName);
-	}
-
-	public async onPromptSelect(event: Event, modelName: string, listPath: string, propertyPath: string): Promise<void> {
-		const localModel: JSONModel = this.getModel(modelName) as JSONModel;
-		const source = event.getSource();
-		const selectedIndex: number = +source.getContent()[0].getId().split("-").at(-1);
-		const labelText: string = localModel.getProperty(listPath)[selectedIndex].label
-		localModel.setProperty(propertyPath, labelText);
-
 	}
 
 	/**
@@ -216,14 +188,14 @@ export default abstract class BaseController extends Controller {
 		dialog.open();
 	}
 
-	public async onOpenMovieList(event: Event): Promise<void> {
+	public async onOpenProductList(event: Event): Promise<void> {
 		const localModel: JSONModel = this.getModel("suggestedQuestions") as JSONModel;
-		if (!this.movieListDialog) {
+		if (!this.productListDialog) {
 			const version = localModel.getProperty("/version")
-			await this.initMovieListDialog(version);
+			await this.initProductListDialog(version);
 		} else {
 			// we need to add the table again because on each dialog close, we destroy its content
-			// this.movieListDialog.addContent(this.createDialogContent());
+			// this.productListDialog.addContent(this.createDialogContent());
 		}
 		// this.createNewGroundingDialog.setModel("TODO");
 		let sInputValue = this.byId("productInput").getValue();
@@ -233,7 +205,7 @@ export default abstract class BaseController extends Controller {
 			oProduct.selected = (oProduct.PRODUCT_NAME === sInputValue);
 		});
 		localModel.setProperty("/productsStatic", aProducts);
-		this.movieListDialog.open();
+		this.productListDialog.open();
 		/** Once the grounding has been created and stored, its metadata need to
 		 * be added to the model to update the list of available groundings */
 	}
@@ -256,30 +228,20 @@ export default abstract class BaseController extends Controller {
 		this.byId("productDesc").setText(oSelectedItem.getDescription());
 	}
 
-	public async initMovieListDialog(version: string): Promise<void> {
+	public async initProductListDialog(version: string): Promise<void> {
 
-		this.movieListDialog = (await Fragment.load({
-			id: "MovieListDialog" + version,
-			name: "productsearchrag.view.MovieListDialog",
+		this.productListDialog = (await Fragment.load({
+			id: "ProductListDialog" + version,
+			name: "productsearchrag.view.ProductListDialog",
 			controller: this
 		})) as SelectDialog;
-		const dialog = this.movieListDialog as SelectDialog;
-		this.getView().addDependent(this.movieListDialog);
-		// const closeButton = new Button({
-		// 	text: this.getText("buttons.close"),
-		// 	press: () => {
-		// 		dialog.destroyContent();
-		// 		dialog.close();
-		// 	}});
-		// dialog.setEndButton(closeButton);
-
-		// dialog.addContent(this.createDialogContent());
+		const dialog = this.productListDialog as SelectDialog;
+		this.getView().addDependent(this.productListDialog);
 		const localModel: JSONModel = this.getModel("suggestedQuestions") as JSONModel;
 		dialog.setModel(localModel);
 	}
 
 	public createDialogContent(): Table {
-		// const scenario = this.getModel("suggestedQuestions").getProperty("/scenario/name");
 		const pathForTable = "/productsStatic";
 		const labelForDescription = "Products";
 		const oSorter = new Sorter('PRODUCT_ID');
@@ -400,88 +362,9 @@ export default abstract class BaseController extends Controller {
 		localModel.setProperty('/applicationFlowGraph/groups', groupsDefinition);
 	}
 
-	public async callBackendEndpoint(endpoint: string, payload: any, httpHeaders: any) {
-		this.controller = new AbortController();
-		this.signal = this.controller.signal;
-		const response = await fetch(`${CAP_BASE_MOVIE_URL}/${endpoint}`, {
-			signal: this.signal,
-			method: "POST",
-			headers: {
-				"X-CSRF-Token": httpHeaders["X-CSRF-Token"],
-				"Content-Type": "application/json"
-			},
-			body: JSON.stringify(payload)
-		}).then(async response => {
-			//throw new Error(endpoint);
-			if (!response.ok) {
-				const error: Error = JSON.parse(await response.text()).error;
-				console.log("xxxxx", error.message);
-				throw error;
-			}
-			return response.json();
-		}).catch(e => {
-			console.log("catching error", e)
-			if (!this.oErrorMessageDialog) {
-				this.oErrorMessageDialog = new Dialog({
-					type: DialogType.Message,
-					title: "Error",
-					state: ValueState.Error,
-					content: new Text({ text: e.message }),
-					beginButton: new Button({
-						type: ButtonType.Emphasized,
-						text: "Close",
-						press: function () {
-							this.oErrorMessageDialog.close();
-						}.bind(this)
-					})
-				});
-			}
-			this.oErrorMessageDialog.open();
-			throw new Error(endpoint);
-		})
-		return response;
-	}
-
 	public async connectToGenAI(endpoint: string, payload: any) {
 		this.controller = new AbortController();
 		this.signal = this.controller.signal;
-		// const response = await fetch(`${CAP_BASE_MOVIE_URL}/${endpoint}`, {
-		// 	signal: this.signal,
-		// 	method: "POST",
-		// 	headers: {
-		// 		"X-CSRF-Token": httpHeaders["X-CSRF-Token"],
-		// 		"Content-Type": "application/json"
-		// 	},
-		// 	body: JSON.stringify(payload)
-		// }).then(async response => {
-		// 	//throw new Error(endpoint);
-		// 	if (!response.ok) {
-		// 		const error: Error = JSON.parse(await response.text()).error;
-		// 		console.log("xxxxx", error.message);
-		// 		throw error;
-		// 	}
-		// 	return response.json();
-		// }).catch(e => {
-		// 	console.log("catching error", e)
-		// 	if (!this.oErrorMessageDialog) {
-		// 		this.oErrorMessageDialog = new Dialog({
-		// 			type: DialogType.Message,
-		// 			title: "Error",
-		// 			state: ValueState.Error,
-		// 			content: new Text({ text: e.message }),
-		// 			beginButton: new Button({
-		// 				type: ButtonType.Emphasized,
-		// 				text: "Close",
-		// 				press: function () {
-		// 					this.oErrorMessageDialog.close();
-		// 				}.bind(this)
-		// 			})
-		// 		});
-		// 	}
-		// 	this.oErrorMessageDialog.open();
-		// 	throw new Error(endpoint);
-
-		// var oModel = this.getView().getModel();
 		const oDataModel = this.getModel() as ODataModel;
 		let oActionODataContextBinding = oDataModel.bindContext(endpoint);
 		oActionODataContextBinding.setParameter("prompt", payload.text);
@@ -498,9 +381,6 @@ export default abstract class BaseController extends Controller {
 				response = oActionContext.getObject().value;
 			},
 			function (oError) {
-				// oGlobalBusyDialog.close();
-				// that.byId("table0").setVisible(false);
-				// that.byId("im").setVisible(true);
 				MessageBox.alert(oError.message, {
 					icon: MessageBox.Icon.ERROR,
 					title: "Error"
@@ -543,56 +423,5 @@ export default abstract class BaseController extends Controller {
 		graphDefinition.lines = colorAdjustedLines;
 		graphDefinition.groups = colorAdjustedGroups;
 		localModel.setProperty("/applicationFlowGraph", graphDefinition);
-	}
-
-	public async onLinePress(event: Event): Promise<void> {
-		// Prevents render a default tooltip
-		const localModel: JSONModel = this.getModel("suggestedQuestions") as JSONModel;
-		const scenario = localModel.getProperty("/scenario/name");
-		const version = localModel.getProperty("/version");
-		let question;
-		const rag = localModel.getProperty("/promptChain/input_documents") ? true : false;
-		if (version === "Standard") {
-			question = localModel.getProperty("/standard/llmWithRagPrompt");
-		} else if (version === "Expert") {
-			question = localModel.getProperty("/expert/llmWithRagPrompt");
-		}
-		const oDataModel = this.getModel("movie-api") as ODataModel;
-		const httpHeaders: any = oDataModel.getHttpHeaders();
-		const response = await fetch(`${CAP_BASE_MOVIE_URL}/ScenarioConfig?$filter=scenario eq '${scenario}'`, {
-			method: "GET",
-			headers: {
-				"X-CSRF-Token": httpHeaders["X-CSRF-Token"],
-				"Content-Type": "application/json"
-			}
-		});
-		const result = await response.json();
-		let inputForLLM;
-		if (rag) {
-			const message = result.value[0].promptTemplateWithRAG;
-			const movies = localModel.getProperty("/promptChain/input_documents");
-			inputForLLM = message.replace("{context}", movies.map(m => {
-				return m.pageContent.length > 150 ? m.pageContent.substr(0, 147) + "...\n" : m.pageContent
-			}).join("\n"));
-		} else {
-			inputForLLM = result.value[0].promptTemplateNoRAG;
-		}
-		inputForLLM += `\n\nUser Question: ${question}`
-		localModel.setProperty("/inputForLLM", inputForLLM)
-		if (!this.createGetLinePopover) {
-			await this.initCreateGetLinePopover();
-		}
-		const helpButton: Button = event.getSource();
-		this.createGetLinePopover.openBy(helpButton);
-	}
-
-	public async initCreateGetLinePopover(): Promise<void> {
-		this.createGetLinePopover = (await Fragment.load({
-			id: "getLinePopover",
-			name: "productsearchrag.view.GetLinePopover",
-			controller: this
-		})) as Popover;
-		const popover = this.createGetLinePopover as Popover;
-		this.getView().addDependent(this.createGetLinePopover);
 	}
 }

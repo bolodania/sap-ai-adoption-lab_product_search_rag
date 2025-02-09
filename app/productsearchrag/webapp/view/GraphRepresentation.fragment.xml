@@ -80,9 +80,6 @@
                                     value="{suggestedQuestions>value}"
                                 />
                             </g:attributes>
-													<g:actionButtons>
-														<g:ActionButton enabled="{suggestedQuestions>enabled}" icon="sap-icon://text" press="onLinePress"/>
-													</g:actionButtons>
                         </g:Node>
                     </g:nodes>
                     <g:lines>

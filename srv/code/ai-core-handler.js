@@ -1,5 +1,5 @@
 
-const tableName = 'CATALOG_UPDATED_DEV_1_RMILLERYOUR_NUMBER';
+const tableName = 'PRODUCTS_IT_ACCESSORY_ADA_RMILLERYOUR_NUMBER';
 const embeddingColumn = 'VEC_VECTOR';
 const contentColumn = 'VEC_TEXT';
 
@@ -15,23 +15,24 @@ const systemPrompt =
         "CATEGORY",
         "DESCRIPTION",
         "UNIT_PRICE",
-        "UNIT_MEASURE",
+        "CURRENCY",
         "SUPPLIER_ID",
         "SUPPLIER_NAME",
         "LEAD_TIME_DAYS",
         "MIN_ORDER",
-        "CURRENCY",
         "SUPPLIER_COUNTRY",
         "SUPPLIER_ADDRESS",
         "SUPPLIER_CITY",
-        "CITY_LAT",
-        "CITY_LONG",
         "RATING",
-        "STATUS": AVAILAVLE
+        "STATUS"
     \n
-    mention in the end that the product is 'AVAILABLE'.
+    make sure that the "STATUS" of the product is 'AVAILABLE'
+    \n
+    explicity mention in your response that the product is 'AVAILABLE'.
     \n
     Before providing the answer, please state that the answer is based on the information in SAP HANA Cloud.
+    \n
+    format the response in the nice human-readable style (don't mention it in your response, just do the formatting)
     
 `;
 

@@ -1,0 +1,30 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	core:require="{ formatter:
+	'productsearchrag/model/formatter' }">
+		<SelectDialog
+			id="ProductListDialog"
+			noDataText="No Products Found"
+			title="Select Product"
+			search=".onSearch"
+			searchPlaceholder="Search Products"
+			confirm=".onValueHelpDialogClose"
+			cancel=".onValueHelpDialogClose"
+			showClearButton="true"
+			items="{
+				path: '/productsStatic',
+				sorter: {
+					path: 'PRODUCT_NAME',
+					descending: false
+				}
+			}">
+			<StandardListItem
+				selected="{selected}"
+				title="{PRODUCT_NAME}"
+				description="{DESCRIPTION}"
+				iconDensityAware="false"
+				iconInset="false"
+				type="Active" />
+		</SelectDialog>
+</core:FragmentDefinition>
