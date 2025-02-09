@@ -4,7 +4,7 @@
             "object_privileges": [
                 {
                     "schema": "RMILLERYOUR_NUMBER",
-                    "name": "CATALOG_UPDATED_DEV_1_RMILLERYOUR_NUMBER",
+                    "name": "PRODUCTS_IT_ACCESSORY_ADA_RMILLERYOUR_NUMBER",
                     "privileges_with_grant_option": [
                         "SELECT"
                     ]
@@ -15,7 +15,7 @@
             "object_privileges": [
                 {
                     "schema": "RMILLERYOUR_NUMBER",
-                    "name": "CATALOG_UPDATED_DEV_1_RMILLERYOUR_NUMBER",
+                    "name": "PRODUCTS_IT_ACCESSORY_ADA_RMILLERYOUR_NUMBER",
                     "privileges": [
                         "SELECT"
                     ]

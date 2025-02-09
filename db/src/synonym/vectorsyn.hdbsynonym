@@ -1,7 +1,7 @@
 {
-    "CATALOG_UPDATED_DEV_1_RMILLERYOUR_NUMBER": {
+    "PRODUCTS_IT_ACCESSORY_ADA_RMILLERYOUR_NUMBER": {
         "target": {
-            "object": "CATALOG_UPDATED_DEV_1_RMILLERYOUR_NUMBER",
+            "object": "PRODUCTS_IT_ACCESSORY_ADA_RMILLERYOUR_NUMBER",
             "schema": "RMILLERYOUR_NUMBER"
         }
     }
