@@ -28,7 +28,7 @@ const systemPrompt =
     \n
     make sure that the "STATUS" of the product is 'AVAILABLE'
     \n
-    explicity mention in your response that the product is 'AVAILABLE'.
+    explicitly mention in your response that the product is 'AVAILABLE'.
     \n
     Before providing the answer, please state that the answer is based on the information in SAP HANA Cloud.
     \n

@@ -1,0 +1,12 @@
+---
+applications:
+- name: product_search_rag_YOUR_NUMBER-python-srv
+  random-route: true
+  path: ./
+  memory: 256M
+  buildpacks: 
+  - python_buildpack
+  command: python server.py
+  services:
+  - product_search_rag_YOUR_NUMBER-uaa
+

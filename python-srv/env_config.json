@@ -1,0 +1,7 @@
+{
+    "AICORE_AUTH_URL": "https://gen-ai-workshop.authentication.eu10.hana.ondemand.com/oauth/token",
+    "AICORE_CLIENT_ID": "sb-de8a52c6-480c-427b-a015-774279e49544!b464347|aicore!b540",
+    "AICORE_CLIENT_SECRET": "abfab343-ee51-4b91-a971-ee05eb6368db$7TFVLnbWlAy67Lyez0ZHB8CETAcY84oFG2c_nzY3_Sw=",
+    "AICORE_BASE_URL": "https://api.ai.prod.eu-central-1.aws.ml.hana.ondemand.com/v2",
+    "AICORE_RESOURCE_GROUP": "default"
+}
