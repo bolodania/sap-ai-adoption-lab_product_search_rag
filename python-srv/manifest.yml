@@ -1,12 +1,11 @@
----
 applications:
-- name: product_search_rag_YOUR_NUMBER-python-srv
-  random-route: true
-  path: ./
-  memory: 256M
-  buildpacks: 
-  - python_buildpack
-  command: python server.py
-  services:
-  - product_search_rag_YOUR_NUMBER-uaa
-
+  - name: product_search_rag_YOUR_NUMBER-python-srv
+    memory: 1G
+    disk_quota: 5G
+    instances: 1
+    buildpacks:
+      - python_buildpack
+    env:
+      FLASK_ENV: production
+    services:
+      - product_search_rag_YOUR_NUMBER-uaa
