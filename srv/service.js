@@ -13,7 +13,7 @@ class GenAIService extends LCAPApplicationService {
             const chatModelName = req.data.chatModelName;
             const withRAG = req.data.withRAG;
 
-            return handlerAICore.connectToGenAIviaPlugin(prompt, chatModelName, withRAG);
+            return handlerAICore.connectToGenAIHub(prompt, chatModelName, withRAG);
         });
 
         return super.init();

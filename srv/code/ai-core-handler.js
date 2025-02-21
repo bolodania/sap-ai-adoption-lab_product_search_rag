@@ -43,7 +43,7 @@ const systemPromptWithoutRAG =
     
 `;
 
-async function connectToGenAIviaPlugin(query, modelName, withRAG) {
+async function connectToGenAIHub(query, modelName, withRAG) {
 
     const user_query = query;
     const topK = 15;
@@ -151,4 +151,4 @@ async function connectToGenAIviaPlugin(query, modelName, withRAG) {
     return response;
 }
 
-module.exports = { connectToGenAIviaPlugin };
+module.exports = { connectToGenAIHub };
