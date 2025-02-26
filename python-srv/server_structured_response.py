@@ -11,9 +11,9 @@ from gen_ai_hub.proxy.langchain.openai import OpenAIEmbeddings, ChatOpenAI
 from gen_ai_hub.proxy.gen_ai_hub_proxy import GenAIHubProxyClient
 from ai_core_sdk.ai_core_v2_client import AICoreV2Client
 from langchain.prompts import PromptTemplate
-from langchain.chains import RetrievalQA
 from langchain_community.vectorstores.hanavector import HanaDB
 from langchain.schema import HumanMessage
+from pydantic import BaseModel, Field
 
 load_dotenv()
 
@@ -34,6 +34,7 @@ ai_core_client = AICoreV2Client(base_url=aicore_config['AICORE_BASE_URL'],
     
         
 proxy_client = GenAIHubProxyClient(ai_core_client = ai_core_client)
+llm = ChatOpenAI(proxy_model_name='gpt-4o', proxy_client=proxy_client)
 embedding_model = OpenAIEmbeddings(proxy_model_name='text-embedding-ada-002', proxy_client=proxy_client)
 
 conn_db_api = dbapi.connect( 
@@ -57,62 +58,63 @@ env = AppEnv()
 
 def process_data(data):
     try:
-
-        chat_model_name = data["chatModelName"]
-        llm = ChatOpenAI(proxy_model_name=chat_model_name, proxy_client=proxy_client)
-
-        question = data["query"]
-        with_RAG = data["withRAG"]
         inc_prompt = data["prompt"]
 
-        if with_RAG:
+        prompt_template = f"{inc_prompt}" + """
 
-            prompt_template = f"{inc_prompt}" + """
+            {context}
 
-                {context}
+            question: {question}
 
-                question: {question}
+            """
 
-                """
-
-            PROMPT = PromptTemplate(template = prompt_template, 
-                            input_variables=["context", "question"]
-                        )
-                
-            chain_type_kwargs = {"prompt": PROMPT}
-
-            top_k = data["topK"]
-            retriever = db_ada_table.as_retriever(search_kwargs={'k':top_k})
-
-            qa = RetrievalQA.from_chain_type(llm=llm,
-                            retriever=retriever, 
-                            chain_type="stuff",
-                            chain_type_kwargs= chain_type_kwargs)
-
-            answer = qa.invoke(question)
-
-            return json.dumps(answer)
-        else:
-            prompt_template = f"{inc_prompt}" + """
-
-                question: {question}
-
-                """
-
-            PROMPT = PromptTemplate(template = prompt_template, 
-                        input_variables=["question"]
+        PROMPT = PromptTemplate(template = prompt_template, 
+                        input_variables=["context", "question"]
                        )
 
-            answer = llm.invoke(
-                [HumanMessage(content=PROMPT.format(question=question))],
-            )
+        question = data["query"]
+        retriever = db_ada_table.as_retriever(search_kwargs={'k':25})
+        retrieved_docs = retriever.invoke(question)
 
-            response_dict = {
-                "query": question,
-                "result": answer.content
-            }
-            return json.dumps(response_dict, indent=4)
+        # Combine retrieved docs into a single context string
+        context = "\n".join([doc.page_content for doc in retrieved_docs])
 
+        # Define the schema as a Pydantic model
+        class ProductData(BaseModel):
+            productId: str = Field(description="The ID of the product")
+            productName: str = Field(description="The name of the product")
+            category: str = Field(description="The category of the product")
+            description: str = Field(description="The description of the product")
+            unitPrice: float = Field(description="The unit price of the product")
+            currency: str = Field(description="The currency")
+            supplierId: str = Field(description="The ID of the supplier")
+            supplierName: str = Field(description="The name of the supplier")
+            supplierCountry: str = Field(description="The country where the supplier is located")
+            supplierCity: str = Field(description="The city where the supplier is located")
+            supplierAddress: str = Field(description="The address of the supplier")
+            leadTimeDays: int = Field(description="The lead time (in days)")
+            minOrder: int = Field(description="Minimal order amount for the product")
+            rating: int = Field(description="The rating of the product")
+            status: str = Field(description="The status of the product")
+
+        # Get the function definition
+        function_def = {
+            "name": "get_product_data",
+            "description": "Retrieve product information",
+            "parameters": ProductData.schema()  # Converts Pydantic model to OpenAI function format
+        }
+
+        answer = llm.invoke(
+            [HumanMessage(content=PROMPT.format(context=context, question=question))],
+            functions=[function_def],  # Pass JSON schema
+            function_call={"name": "get_product_data"}  # Let the model decide when to use the function
+        )
+
+        # Parse the structured output
+        parsed_output = ProductData.parse_raw(answer.additional_kwargs["function_call"]["arguments"])
+
+        return json.dumps(parsed_output.dict())
+        
     except Exception as e:
         return json.dumps({"error": str(e)})
 
@@ -152,7 +154,7 @@ def require_auth(f):
 def process_request():
     try:
         data = request.get_json()
-        required_fields = ["prompt", "query", "chatModelName", "topK", "withRAG"]
+        required_fields = ["query", "prompt"]
         if not data or any(field not in data for field in required_fields):
             return jsonify({"error": "Invalid JSON input"}), 400
         
