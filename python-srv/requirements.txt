@@ -1,9 +1,8 @@
-Flask==2.3.*
-hdbcli==2.23.*
+Flask
+hdbcli
 generative-ai-hub-sdk[all]
-ai_core_sdk
-hana-ml==2.23.*
-python-dotenv==1.0.*
+hana-ml
+python-dotenv
 gunicorn
 cfenv
 sap-xssec
