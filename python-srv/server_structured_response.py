@@ -3,7 +3,6 @@ import json
 import atexit
 from flask import Flask, request, jsonify
 from hdbcli import dbapi
-from dotenv import load_dotenv
 from cfenv import AppEnv
 from sap import xssec
 import functools
@@ -11,32 +10,36 @@ from gen_ai_hub.proxy.langchain.openai import OpenAIEmbeddings, ChatOpenAI
 from gen_ai_hub.proxy.gen_ai_hub_proxy import GenAIHubProxyClient
 from ai_core_sdk.ai_core_v2_client import AICoreV2Client
 from langchain.prompts import PromptTemplate
-from langchain_community.vectorstores.hanavector import HanaDB
+from langchain_hana import HanaDB
 from langchain.schema import HumanMessage
 from pydantic import BaseModel, Field
 
-load_dotenv()
+#define the local testing variable (True to skip authorization)   
+local_testing = False
 
-local_testing = True
-
+# Load HANA Cloud connection details
 with open(os.path.join(os.getcwd(), 'env_cloud.json')) as f:
     hana_env_c = json.load(f)
 
+# Load AI Core configuration
 with open(os.path.join(os.getcwd(), 'env_config.json')) as f:
     aicore_config = json.load(f)
 
-# Init the OpenAI embedding model
+# Initialize the AI Core client
 ai_core_client = AICoreV2Client(base_url=aicore_config['AICORE_BASE_URL'],
                             auth_url=aicore_config['AICORE_AUTH_URL'],
                             client_id=aicore_config['AICORE_CLIENT_ID'],
                             client_secret=aicore_config['AICORE_CLIENT_SECRET'],
                             resource_group=aicore_config['AICORE_RESOURCE_GROUP'])
     
-        
+# Initialize the GenAIHub proxy client        
 proxy_client = GenAIHubProxyClient(ai_core_client = ai_core_client)
-llm = ChatOpenAI(proxy_model_name='gpt-4o', proxy_client=proxy_client)
+# Init the OpenAI embedding model
 embedding_model = OpenAIEmbeddings(proxy_model_name='text-embedding-ada-002', proxy_client=proxy_client)
+# Set up the ChatOpenAI model
+llm = ChatOpenAI(proxy_model_name='gpt-4o', proxy_client=proxy_client)
 
+# Establish a connection to the HANA Cloud database
 conn_db_api = dbapi.connect( 
     address=hana_env_c['url'],
     port=hana_env_c['port'], 
@@ -44,6 +47,7 @@ conn_db_api = dbapi.connect(
     password=hana_env_c['pwd']   
 )
 
+# Create a LangChain VectorStore interface for the HANA database and specify the table (collection) to use for accessing the vector embeddings
 db_ada_table = HanaDB(
     embedding=embedding_model, 
     connection=conn_db_api, 
@@ -52,9 +56,14 @@ db_ada_table = HanaDB(
     metadata_column="VEC_META", # metadata associated with the product details
     vector_column="VEC_VECTOR" # the vector representation of each product 
 )
-
+# Create a Flask application
 app = Flask(__name__)
+# Create an environment object to access the UAA service
+# This is used for authorization
 env = AppEnv()
+
+# This function is called when the /retrieveData endpoint is hit
+#The function takes the incoming data as input and returns the result as output
 
 def process_data(data):
     try:

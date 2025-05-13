@@ -1,8 +1,6 @@
 Flask
 hdbcli
 generative-ai-hub-sdk[all]
-hana-ml
-python-dotenv
 gunicorn
 cfenv
 sap-xssec

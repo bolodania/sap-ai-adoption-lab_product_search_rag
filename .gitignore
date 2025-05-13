@@ -43,6 +43,3 @@ env/
 
 # auto generated wildcard
 db/.env
-
-python-srv/env_cloud.json
-python-srv/env_config.json
