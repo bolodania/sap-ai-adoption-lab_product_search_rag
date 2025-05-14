@@ -43,16 +43,16 @@
                                 valueHelpRequest=".onOpenProductList"
                                 class="sapUiSmallMarginBottom"/>
 
-                            <Label text="Product Description:" labelFor="productDesc" visible="{suggestedQuestions>/showProductFiels}"/>
-                            <Text id="productDesc" visible="{suggestedQuestions>/showProductFiels}" class="sapUiSmallMarginBottom"/>
+                            <Label text="Product Description:" labelFor="productDesc" visible="{localModel>/showProductFiels}"/>
+                            <Text id="productDesc" visible="{localModel>/showProductFiels}" class="sapUiSmallMarginBottom"/>
 
-                            <Label text="Product Status:" labelFor="productDesc" visible="{suggestedQuestions>/showProductFiels}"/>
+                            <Label text="Product Status:" labelFor="productDesc" visible="{localModel>/showProductFiels}"/>
                             <ObjectStatus
                                 text="Not Available"
                                 icon="sap-icon://alert"
-                                state="Warning" visible="{suggestedQuestions>/showProductFiels}" class="sapUiSmallMarginBottom"/>
+                                state="Warning" visible="{localModel>/showProductFiels}" class="sapUiSmallMarginBottom"/>
 
-                            <Button type="Emphasized" text="Find alternative?" press="onFindAlternativePress" visible="{suggestedQuestions>/showProductFiels}" class="sapUiSmallMarginBottom"/>
+                            <Button type="Emphasized" text="Find alternative?" press="onFindAlternativePress" visible="{localModel>/showProductFiels}" class="sapUiSmallMarginBottom"/>
                         </l:VerticalLayout>
                     </content>
                 </Panel>
@@ -69,28 +69,39 @@
                             <Title text="{i18n>questionInput}" />
                             <ToolbarSpacer />
                             <Select
-                                selectedKey="{suggestedQuestions>/scenario/standard/selectedModel}"
-                                items="{suggestedQuestions>/models}"
-                                busy="{suggestedQuestions>/standard/ragAnswerListItemIsBusy}"
+                                selectedKey="{localModel>/scenario/standard/selectedSDK}"
+                                items="{localModel>/SDKs}"
+                                busy="{localModel>/standard/ragAnswerListItemIsBusy}"
                             >
                                 <core:ListItem
-                                    key="{suggestedQuestions>name}"
-                                    text="{suggestedQuestions>name}"
-                                    icon="{suggestedQuestions>icon}"
+                                    key="{localModel>name}"
+                                    text="{localModel>name}"
+                                    icon="{localModel>icon}"
+                                />
+                            </Select>
+                            <Select
+                                selectedKey="{localModel>/scenario/standard/selectedModel}"
+                                items="{localModel>/models}"
+                                busy="{localModel>/standard/ragAnswerListItemIsBusy}"
+                            >
+                                <core:ListItem
+                                    key="{localModel>name}"
+                                    text="{localModel>name}"
+                                    icon="{localModel>icon}"
                                 />
                             </Select>
                             <Button
                                 icon="sap-icon://error"
                                 text="Cancel"
                                 press="onCancelPress"
-                                enabled="{suggestedQuestions>/standard/ragAnswerListItemIsBusy}"
+                                enabled="{localModel>/standard/ragAnswerListItemIsBusy}"
                             />
                         </OverflowToolbar>
                     </headerToolbar>
                     <content>
                         <FlexBox alignItems="Center" justifyContent="Center" class="sapUiContentPadding">
                             <Label text="With Retrieval Augmented Generation:"/>
-                            <Switch state="{suggestedQuestions>/standard/withRag}"
+                            <Switch state="{localModel>/standard/withRag}"
                                     customTextOn="Yes"
                                     customTextOff="No"
                                     change="onWithRagToggle">
@@ -105,10 +116,10 @@
                                     post="onPromptLlmWithRagSubmit"
                                     showIcon="true"
                                     growing="true"
-                                    busy="{suggestedQuestions>/standard/ragAnswerListItemIsBusy}"
+                                    busy="{localModel>/standard/ragAnswerListItemIsBusy}"
                                     class="sapUiResponsiveContentPadding"
                                     placeholder="Ask a question or choose one from the selection above."
-                                    value="{suggestedQuestions>/standard/llmWithRagPrompt}"
+                                    value="{localModel>/standard/llmWithRagPrompt}"
                             >
                                 <layoutData>
                                     <l:GridData span="L10 M10 S12" linebreakL="true" linebreakM="true" linebreakS="true"/>
@@ -122,7 +133,7 @@
                     expandable="false"
                     expanded="true"
                     stickyHeader="true"
-                    headerText="{= ${suggestedQuestions>/standard/withRag} ? ${i18n>LLMWithRagResponse} : ${i18n>LLMWithoutRagResponse}}"
+                    headerText="{= ${localModel>/standard/withRag} ? ${i18n>LLMWithRagResponse} : ${i18n>LLMWithoutRagResponse}}"
                     width="auto"
                     class="sapUiSmallMargin"
                     >
@@ -132,9 +143,9 @@
                             id="RagAnswerListItem"
                             icon="sap-icon://ai"
                             iconActive="false"
-                            busy="{suggestedQuestions>/standard/ragAnswerListItemIsBusy}"
+                            busy="{localModel>/standard/ragAnswerListItemIsBusy}"
                             class="sapUiResponsiveMargin"
-                            text="{suggestedQuestions>/standard/llmAnswer}"
+                            text="{localModel>/standard/llmAnswer}"
                             maxCharacters="2000"
                         />
                     </content>

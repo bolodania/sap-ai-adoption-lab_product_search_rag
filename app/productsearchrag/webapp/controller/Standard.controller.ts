@@ -12,7 +12,7 @@ export default class Standard extends BaseController {
 
         this.controller = new AbortController();
         this.signal = this.controller.signal;
-        const localModel: JSONModel = this.getModel("suggestedQuestions") as JSONModel;
+        const localModel: JSONModel = this.getModel("localModel") as JSONModel;
 
         const question: string = localModel.getProperty("/standard/llmWithRagPrompt");
 
@@ -76,7 +76,7 @@ export default class Standard extends BaseController {
     }
 
     public async onFindAlternativePress(): Promise<void> {
-        const localModel: JSONModel = this.getModel("suggestedQuestions") as JSONModel;
+        const localModel: JSONModel = this.getModel("localModel") as JSONModel;
 
         const llmWithRagPrompt = "Suggest an alternative for a product name '" + this.byId("productInput").getValue() + "' with the description '" + this.byId("productDesc").getText() + "'";
         console.log(llmWithRagPrompt);
@@ -87,7 +87,7 @@ export default class Standard extends BaseController {
     public async onStandardPromptDeletePress(event: Event): Promise<void> {
         const selectedItem = event.getParameter("listItem").getId()
         const selectedItemIndex = +selectedItem.split("-").at(-1)
-        const localModel: JSONModel = this.getModel("suggestedQuestions") as JSONModel;
+        const localModel: JSONModel = this.getModel("localModel") as JSONModel;
         const existingQuestions = localModel.getProperty("/scenario/prompts");
         existingQuestions.splice(selectedItemIndex, 1)
         existingQuestions.map((q: { index: number; }) => { if (q.index > selectedItemIndex) q.index -= 1 })
@@ -97,7 +97,7 @@ export default class Standard extends BaseController {
     public onWithRagToggle(event: Event): void {
         // depending on switch state, grey out the "with RAG" part of the graph, or the "without RAG" part
         this.resetGraph();
-        const localModel: JSONModel = this.getModel("suggestedQuestions") as JSONModel;
+        const localModel: JSONModel = this.getModel("localModel") as JSONModel;
         const isWithRag: boolean = localModel.getProperty("/standard/withRag");
         this.setRagGroupColor(isWithRag);
 

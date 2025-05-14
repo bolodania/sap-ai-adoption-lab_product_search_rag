@@ -46,14 +46,14 @@
         "gpt-4o": {
           "destinationName": "GenAIHubDestination",
           "deploymentUrl": "/v2/inference/deployments/YOUR_GPT4O_MODEL_ID",
-          "resourceGroup": "userYOUR_NUMBER-l2o-rg",
+          "resourceGroup": "default",
           "apiVersion": "2024-02-15-preview",
           "modelName": "gpt-4o"
         },
         "text-embedding-ada-002": {
           "destinationName": "GenAIHubDestination",
           "deploymentUrl": "/v2/inference/deployments/YOUR_EMBEDDING_MODEL_ID",
-          "resourceGroup": "userYOUR_NUMBER-l2o-rg",
+          "resourceGroup": "default",
           "apiVersion": "2024-02-15-preview",
           "modelName": "text-embedding-ada-002"
         }
@@ -68,7 +68,7 @@
       "PythonSrvDestination": {
         "kind": "rest",
         "credentials": {
-          "destination": "python-srv",
+          "destination": "product_search_rag_YOUR_NUMBER-python-srv",
           "requestTimeout": "300000"
         }
       },

@@ -28,9 +28,9 @@
                     orientation="TopBottom"
                     height="100%"
                     width="100%"
-                    nodes="{suggestedQuestions>/applicationFlowGraph/nodes}"
-                    lines="{suggestedQuestions>/applicationFlowGraph/lines}"
-                    groups="{suggestedQuestions>/applicationFlowGraph/groups}"
+                    nodes="{localModel>/applicationFlowGraph/nodes}"
+                    lines="{localModel>/applicationFlowGraph/lines}"
+                    groups="{localModel>/applicationFlowGraph/groups}"
                 >
                     <g:statuses>
                         <g:Status
@@ -64,38 +64,38 @@
                     </g:layoutAlgorithm>
                     <g:nodes>
                         <g:Node
-                            key="{suggestedQuestions>key}"
-                            group="{suggestedQuestions>group}"
-                            title="{suggestedQuestions>title}"
+                            key="{localModel>key}"
+                            group="{localModel>group}"
+                            title="{localModel>title}"
                             titleLineSize="3"
                             showExpandButton="false"
-                            icon="{suggestedQuestions>icon}"
-                            attributes="{path:'suggestedQuestions>attributes', templateShareable:true}"
-                            status="{suggestedQuestions>status}"
-                            busy="{suggestedQuestions>busy}"
+                            icon="{localModel>icon}"
+                            attributes="{path:'localModel>attributes', templateShareable:true}"
+                            status="{localModel>status}"
+                            busy="{localModel>busy}"
                         >
                             <g:attributes>
                                 <g:ElementAttribute
-                                    label="{suggestedQuestions>label}"
-                                    value="{suggestedQuestions>value}"
+                                    label="{localModel>label}"
+                                    value="{localModel>value}"
                                 />
                             </g:attributes>
                         </g:Node>
                     </g:nodes>
                     <g:lines>
                         <g:Line
-                            from="{suggestedQuestions>from}"
-                            to="{suggestedQuestions>to}"
-                            title="{suggestedQuestions>title}"
-                            status="{suggestedQuestions>status}"
+                            from="{localModel>from}"
+                            to="{localModel>to}"
+                            title="{localModel>title}"
+                            status="{localModel>status}"
                         />
                     </g:lines>
                     <g:groups>
                         <g:Group
-                            key="{suggestedQuestions>key}"
-                            status="{suggestedQuestions>status}"
-                            title="{suggestedQuestions>title}"
-                            busy="{suggestedQuestions>busy}"
+                            key="{localModel>key}"
+                            status="{localModel>status}"
+                            title="{localModel>title}"
+                            busy="{localModel>busy}"
                         />
                     </g:groups>
                 </g:Graph>

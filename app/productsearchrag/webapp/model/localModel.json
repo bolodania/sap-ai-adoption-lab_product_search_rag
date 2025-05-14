@@ -1,5 +1,10 @@
 {
-	"scenario": {},
+	"scenario": {
+		"standard": {
+			"selectedModel": "GPT-4",
+			"selectedSDK": " CAP LLM Plugin"
+		}
+	},
 	"inputForLLM": "",
 	"promptChain": {},
 	"version": "",

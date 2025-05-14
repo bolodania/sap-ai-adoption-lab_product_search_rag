@@ -90,8 +90,8 @@ export default abstract class BaseController extends Controller {
 	};
 
 	public onInit(): void {
-		const model: JSONModel = this.getModel("suggestedQuestions") as JSONModel;
-		this.setModel(model, 'suggestedQuestions');
+		const model: JSONModel = this.getModel("localModel") as JSONModel;
+		this.setModel(model, 'localModel');
 	}
 
 	/**
@@ -154,7 +154,7 @@ export default abstract class BaseController extends Controller {
 	 * @param [bReplace] Defines if the hash should be replaced (no browser history entry) or set (browser history entry)
 	 */
 	public navTo(sName: string, oParameters?: object, bReplace?: boolean): void {
-		const localModel: JSONModel = this.getModel("suggestedQuestions") as JSONModel;
+		const localModel: JSONModel = this.getModel("localModel") as JSONModel;
 		const route = sName[0].toUpperCase() + sName.slice(1);
 		if (route !== "Main") {
 			localModel.setProperty("/version", route);
@@ -162,34 +162,8 @@ export default abstract class BaseController extends Controller {
 		this.getRouter().navTo(sName, oParameters, undefined, bReplace);
 	}
 
-	/**
-	 * Convenience event handler for navigating back.
-	 * It there is a history entry we go one step back in the browser history
-	 * If not, it will replace the current entry of the browser history with the main route.
-	 */
-	public onNavBack(): void {
-		const sPreviousHash = History.getInstance().getPreviousHash();
-		if (sPreviousHash !== undefined) {
-			window.history.go(-1);
-		} else {
-			this.getRouter().navTo("main", {}, undefined, true);
-		}
-	}
-
-	/* To open a generic message dialog */
-	public openMessageDialog(title: string, body: string) {
-		const content = new Text({ text: body });
-		content.addStyleClass("sapUiTinyMarginTop");
-		content.addStyleClass("sapUiSmallMarginBeginEnd");
-
-		const dialog = new Dialog({ title: title, content: content, contentWidth: "40%" });
-		const closeButton = new Button({ text: this.getText("buttons.close"), press: () => dialog.close() });
-		dialog.setBeginButton(closeButton);
-		dialog.open();
-	}
-
 	public async onOpenProductList(event: Event): Promise<void> {
-		const localModel: JSONModel = this.getModel("suggestedQuestions") as JSONModel;
+		const localModel: JSONModel = this.getModel("localModel") as JSONModel;
 		if (!this.productListDialog) {
 			const version = localModel.getProperty("/version")
 			await this.initProductListDialog(version);
@@ -214,7 +188,7 @@ export default abstract class BaseController extends Controller {
 		let oSelectedItem = event.getParameter("selectedItem");
 		let oInput = this.byId("productInput");
 
-		const localModel: JSONModel = this.getModel("suggestedQuestions") as JSONModel;
+		const localModel: JSONModel = this.getModel("localModel") as JSONModel;
 
 		if (!oSelectedItem) {
 			oInput.resetProperty("value");
@@ -237,7 +211,7 @@ export default abstract class BaseController extends Controller {
 		})) as SelectDialog;
 		const dialog = this.productListDialog as SelectDialog;
 		this.getView().addDependent(this.productListDialog);
-		const localModel: JSONModel = this.getModel("suggestedQuestions") as JSONModel;
+		const localModel: JSONModel = this.getModel("localModel") as JSONModel;
 		dialog.setModel(localModel);
 	}
 
@@ -299,14 +273,14 @@ export default abstract class BaseController extends Controller {
 	}
 
 	public resetGraph(): void {
-		const localModel: JSONModel = this.getModel("suggestedQuestions") as JSONModel;
+		const localModel: JSONModel = this.getModel("localModel") as JSONModel;
 		localModel.setProperty("/applicationFlowGraph", JSON.parse(JSON.stringify(INITIAL_GRAPH)));
 		localModel.setProperty("/inputForLLM", "")
 		localModel.setProperty("/promptChain", {})
 	}
 
 	public updateGraph(graphObjectKeys: any, newStatus: string, duration?: number): void {
-		const localModel: JSONModel = this.getModel("suggestedQuestions") as JSONModel;
+		const localModel: JSONModel = this.getModel("localModel") as JSONModel;
 		const graphDefinition: object = localModel.getProperty("/applicationFlowGraph");
 		if (graphObjectKeys.node) {
 			graphDefinition.nodes.find((node: { key: any; status: string; attributes: any; }) => {
@@ -338,14 +312,14 @@ export default abstract class BaseController extends Controller {
 
 	public async onCancelPress(event: Event): Promise<void> {
 		this.controller.abort();
-		const localModel: JSONModel = this.getModel("suggestedQuestions") as JSONModel;
+		const localModel: JSONModel = this.getModel("localModel") as JSONModel;
 		await localModel.setProperty("/standard/llmAnswer", "");
 		console.log("request aborted");
 		this.resetGraph();
 	}
 
 	public toggleLLMNodeBusy(isBusy: boolean) {
-		const localModel: JSONModel = this.getModel("suggestedQuestions") as JSONModel;
+		const localModel: JSONModel = this.getModel("localModel") as JSONModel;
 		let nodesDefinition = localModel.getProperty('/applicationFlowGraph/nodes');
 		nodesDefinition.find((g: { key: string; busy: boolean; }) => {
 			if (g.key === 'llm') g.busy = isBusy
@@ -354,7 +328,7 @@ export default abstract class BaseController extends Controller {
 	}
 
 	public toggleRagGroupBusy(isBusy: boolean) {
-		const localModel: JSONModel = this.getModel("suggestedQuestions") as JSONModel;
+		const localModel: JSONModel = this.getModel("localModel") as JSONModel;
 		let groupsDefinition = localModel.getProperty('/applicationFlowGraph/groups');
 		groupsDefinition.find((g: { key: string; busy: boolean; }) => {
 			if (g.key === 'ragGroup') g.busy = isBusy
@@ -367,8 +341,9 @@ export default abstract class BaseController extends Controller {
 		this.signal = this.controller.signal;
 		const oDataModel = this.getModel() as ODataModel;
 		let oActionODataContextBinding = oDataModel.bindContext(endpoint);
-		oActionODataContextBinding.setParameter("prompt", payload.text);
+		oActionODataContextBinding.setParameter("query", payload.text);
 		oActionODataContextBinding.setParameter("chatModelName", payload.model);
+		oActionODataContextBinding.setParameter("sdkName", payload.sdk);
 		oActionODataContextBinding.setParameter("withRAG", payload.withRAG);
 
 		var that = this;
@@ -414,7 +389,7 @@ export default abstract class BaseController extends Controller {
 	}
 
 	public setRagGroupColor(isWithRag: boolean, green?: boolean): void {
-		const localModel: JSONModel = this.getModel("suggestedQuestions") as JSONModel;
+		const localModel: JSONModel = this.getModel("localModel") as JSONModel;
 		const graphDefinition: object = localModel.getProperty("/applicationFlowGraph");
 		const colorAdjustedNodes = graphDefinition.nodes.map((node: any) => this.greyOutGraphObject(node, isWithRag, "group", green));
 		const colorAdjustedLines = graphDefinition.lines.map((line: any) => this.greyOutGraphObject(line, isWithRag, "group", green));

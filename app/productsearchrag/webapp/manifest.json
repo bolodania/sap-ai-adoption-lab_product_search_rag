@@ -87,9 +87,9 @@
           "earlyRequests": true
         }
       },
-      "suggestedQuestions": {
+      "localModel": {
         "type": "sap.ui.model.json.JSONModel",
-        "uri": "model/suggestedQuestions.json"
+        "uri": "model/localModel.json"
       }
     },
     "resources": {

@@ -9,8 +9,9 @@ service GenAIService {
             VEC_VECTOR
         };
 
-    action connectToGenAI(prompt : String,
+    action connectToGenAI(query : String,
                           chatModelName : String,
+                          sdkName : String,
                           withRAG : Boolean) returns String;
 
 }

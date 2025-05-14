@@ -14,8 +14,7 @@ export default class App extends BaseController {
     }
 
     public navToMain(): void {
-        const localModel: JSONModel = this.getModel("suggestedQuestions") as JSONModel;
-        localModel.setProperty("/scenario", JSON.parse(JSON.stringify(CAPMODEL)));
+        const localModel: JSONModel = this.getModel("localModel") as JSONModel;
         localModel.setProperty("/version", "")
         localModel.setProperty("/scenario/promptChain", "");
         this.navTo("standard");
