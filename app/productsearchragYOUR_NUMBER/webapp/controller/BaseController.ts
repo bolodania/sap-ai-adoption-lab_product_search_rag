@@ -23,7 +23,7 @@ import ExpandableText from "sap/m/ExpandableText";
 import Sorter from "sap/ui/model/Sorter";
 
 /**
- * @namespace productsearchrag.controller
+ * @namespace productsearchragYOUR_NUMBER.controller
  */
 export default abstract class BaseController extends Controller {
 	private createGetLinePopover: Popover;
@@ -206,7 +206,7 @@ export default abstract class BaseController extends Controller {
 
 		this.productListDialog = (await Fragment.load({
 			id: "ProductListDialog" + version,
-			name: "productsearchrag.view.ProductListDialog",
+			name: "productsearchragYOUR_NUMBER.view.ProductListDialog",
 			controller: this
 		})) as SelectDialog;
 		const dialog = this.productListDialog as SelectDialog;

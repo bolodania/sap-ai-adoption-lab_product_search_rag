@@ -2,7 +2,7 @@
 
 specVersion: "3.1"
 metadata:
-  name: productsearchrag
+  name: productsearchragYOUR_NUMBER
 type: application
 framework:
   name: SAPUI5
@@ -24,7 +24,7 @@ builder:
       afterTask: generateCachebusterInfo
       configuration:
         onlyZip: true
-        archiveName: productsearchrag
+        archiveName: productsearchragYOUR_NUMBER
         additionalFiles:
           "xs-app.json"
 server:

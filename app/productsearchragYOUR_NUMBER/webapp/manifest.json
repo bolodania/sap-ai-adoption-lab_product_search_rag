@@ -1,7 +1,7 @@
 {
   "_version": "1.65.0",
   "sap.app": {
-    "id": "productsearchrag",
+    "id": "productsearchragYOUR_NUMBER",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -28,7 +28,7 @@
     "crossNavigation": {
       "inbounds": {
         "product_search_rag_YOUR_NUMBER-search": {
-          "semanticObject": "productsearchrag",
+          "semanticObject": "productsearchragYOUR_NUMBER",
           "action": "search",
           "title": "{{flpTitle}}",
           "signature": {
@@ -74,7 +74,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "productsearchrag.i18n.i18n"
+          "bundleName": "productsearchragYOUR_NUMBER.i18n.i18n"
         }
       },
       "": {
@@ -104,7 +104,7 @@
         "routerClass": "sap.m.routing.Router",
         "viewType": "XML",
         "async": true,
-        "viewPath": "productsearchrag.view",
+        "viewPath": "productsearchragYOUR_NUMBER.view",
         "controlAggregation": "pages",
         "controlId": "app",
         "clearControlAggregation": false
@@ -147,7 +147,7 @@
       }
     },
     "rootView": {
-      "viewName": "productsearchrag.view.App",
+      "viewName": "productsearchragYOUR_NUMBER.view.App",
       "type": "XML",
       "async": true,
       "id": "App"

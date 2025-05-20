@@ -38,7 +38,7 @@
     "undeploy": "cf undeploy product_search_rag_YOUR_NUMBER --delete-services --delete-service-keys --delete-service-brokers",
     "build": "rimraf resources mta_archives && mbt build --mtar archive",
     "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
-    "watch-productsearchrag": "cds watch --open productsearchrag/index.html?sap-ui-xx-viewCache=false --livereload false"
+    "watch-productsearchragYOUR_NUMBER": "cds watch --open productsearchragYOUR_NUMBER/index.html?sap-ui-xx-viewCache=false --livereload false"
   },
   "cds": {
     "requires": {

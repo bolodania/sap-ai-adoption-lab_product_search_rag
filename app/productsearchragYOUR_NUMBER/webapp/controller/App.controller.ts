@@ -3,7 +3,7 @@ import JSONModel from "sap/ui/model/json/JSONModel";
 import { CAPMODEL } from "../model/cap";
 
 /**
- * @namespace productsearchrag.controller
+ * @namespace productsearchragYOUR_NUMBER.controller
  */
 export default class App extends BaseController {
 

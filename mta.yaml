@@ -120,12 +120,12 @@ modules:
           name: product_search_rag_YOUR_NUMBER-launchpad
           target-path: resources
         - artifacts:
-            - productsearchrag.zip
-          name: productsearchrag
+            - productsearchragYOUR_NUMBER.zip
+          name: productsearchragYOUR_NUMBER
           target-path: resources/
-  - name: productsearchrag
+  - name: productsearchragYOUR_NUMBER
     type: html5
-    path: app/productsearchrag
+    path: app/productsearchragYOUR_NUMBER
     build-parameters:
       build-result: dist
       builder: custom

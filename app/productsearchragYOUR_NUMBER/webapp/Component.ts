@@ -4,7 +4,7 @@ import Device from "sap/ui/Device";
 import IconPool from "sap/ui/core/IconPool";
 
 /**
- * @namespace productsearchrag
+ * @namespace productsearchragYOUR_NUMBER
  */
 export default class Component extends UIComponent {
     public static metadata = {

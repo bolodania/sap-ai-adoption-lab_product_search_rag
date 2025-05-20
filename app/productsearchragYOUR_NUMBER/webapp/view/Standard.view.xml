@@ -1,5 +1,5 @@
 <mvc:View
-    controllerName="productsearchrag.controller.Standard"
+    controllerName="productsearchragYOUR_NUMBER.controller.Standard"
     displayBlock="true"
     height="100%"
     xmlns:core="sap.ui.core"
@@ -151,7 +151,7 @@
                     </content>
                 </Panel>
             </ScrollContainer>
-            <core:Fragment fragmentName="productsearchrag.view.GraphRepresentation" type="XML" />
+            <core:Fragment fragmentName="productsearchragYOUR_NUMBER.view.GraphRepresentation" type="XML" />
         </l:Splitter>
 		<footer>
 		</footer>

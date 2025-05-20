@@ -1,5 +1,5 @@
 <mvc:View
-    controllerName="productsearchrag.controller.App"
+    controllerName="productsearchragYOUR_NUMBER.controller.App"
     displayBlock="true"
     xmlns="sap.f"
     xmlns:m="sap.m"
