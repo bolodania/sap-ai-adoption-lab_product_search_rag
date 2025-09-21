@@ -50,12 +50,12 @@
           "apiVersion": "2024-02-15-preview",
           "modelName": "gpt-4o"
         },
-        "text-embedding-ada-002": {
+        "text-embedding-3-large": {
           "destinationName": "GenAIHubDestination",
           "deploymentUrl": "/inference/deployments/YOUR_EMBEDDING_MODEL_ID",
           "resourceGroup": "default",
           "apiVersion": "2024-02-15-preview",
-          "modelName": "text-embedding-ada-002"
+          "modelName": "text-embedding-3-large"
         }
       },
       "GenAIHubDestination": {

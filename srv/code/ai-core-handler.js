@@ -1,5 +1,5 @@
 
-const tableName = 'PRODUCTS_IT_ACCESSORY_ADA_RMILLERYOUR_NUMBER';
+const tableName = 'PRODUCTS_IT_ACCESSORY_OPENAI_RMILLERYOUR_NUMBER';
 const embeddingColumn = 'VEC_VECTOR';
 const contentColumn = 'VEC_TEXT';
 
@@ -53,9 +53,9 @@ async function connectToGenAIHub(query, modelName, sdkName, withRAG) {
 
     //set the modeName you want
     const chatModelName = modelName;
-    const embeddingModelName = "text-embedding-ada-002";
+    const embeddingModelName = "text-embedding-3-large";
 
-    console.log(`Leveraing the following LLMs \n Chat Model:  ` + modelName + `\n Embedding Model: text-embedding-ada-002\n`);
+    console.log(`Leveraing the following LLMs \n Chat Model:  ` + modelName + `\n Embedding Model: text-embedding-3-large\n`);
 
     //Obtain the model configs configured in package.json
     const chatModelConfig = cds.env.requires["gen-ai-hub"][chatModelName];
