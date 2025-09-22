@@ -14,6 +14,12 @@
 			"description": "GPT-4 is great",
 			"icon": "sap-icon://ai",
 			"value": "gpt-4o"
+		},
+		{
+			"name": "GPT-5",
+			"description": "GPT-5 is great",
+			"icon": "sap-icon://ai",
+			"value": "gpt-5"
 		}
 	],
 	"SDKs": [
