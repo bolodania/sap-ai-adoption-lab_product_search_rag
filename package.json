@@ -46,7 +46,7 @@
           "destinationName": "GenAIHubDestination",
           "deploymentUrl": "/inference/deployments/YOUR_GPT4O_MODEL_ID",
           "resourceGroup": "default",
-          "apiVersion": "2024-02-15-preview",
+          "apiVersion": "2024-10-21",
           "modelName": "gpt-4o"
         },
         "gpt-5": {
@@ -60,7 +60,7 @@
           "destinationName": "GenAIHubDestination",
           "deploymentUrl": "/inference/deployments/YOUR_EMBEDDING_MODEL_ID",
           "resourceGroup": "default",
-          "apiVersion": "2024-02-15-preview",
+          "apiVersion": "2024-10-21",
           "modelName": "text-embedding-3-large"
         }
       },
