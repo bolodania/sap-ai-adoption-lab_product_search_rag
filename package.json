@@ -41,13 +41,6 @@
   },
   "cds": {
     "requires": {
-      "GenAIHubDestination": {
-        "kind": "rest",
-        "credentials": {
-          "destination": "aicore-destination",
-          "requestTimeout": "300000"
-        }
-      },
       "PythonSrvDestination": {
         "kind": "rest",
         "credentials": {
