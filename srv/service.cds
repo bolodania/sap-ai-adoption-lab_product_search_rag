@@ -9,10 +9,9 @@ service GenAIService {
             VEC_VECTOR
         };
 
-    action connectToGenAI(query : String,
-                          chatModelName : String,
-                          sdkName : String,
-                          withRAG : Boolean) returns String;
+    action connectToGenAI(query: String,
+                          chatModelName: String,
+                          withRAG: Boolean) returns String;
 
 }
 

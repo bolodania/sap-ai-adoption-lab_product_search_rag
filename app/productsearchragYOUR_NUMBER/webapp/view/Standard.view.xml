@@ -68,7 +68,7 @@
                         <OverflowToolbar>
                             <Title text="{i18n>questionInput}" />
                             <ToolbarSpacer />
-                            <Select
+                            <!-- <Select
                                 selectedKey="{localModel>/scenario/standard/selectedSDK}"
                                 items="{localModel>/SDKs}"
                                 busy="{localModel>/standard/ragAnswerListItemIsBusy}"
@@ -78,7 +78,7 @@
                                     text="{localModel>name}"
                                     icon="{localModel>icon}"
                                 />
-                            </Select>
+                            </Select> -->
                             <Select
                                 selectedKey="{localModel>/scenario/standard/selectedModel}"
                                 items="{localModel>/models}"

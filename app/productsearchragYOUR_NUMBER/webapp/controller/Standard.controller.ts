@@ -22,14 +22,9 @@ export default class Standard extends BaseController {
         await localModel.setProperty("/standard/llmWithRagPrompt", question);
         const withRag: Boolean = localModel.getProperty("/standard/withRag");
         const modelName = localModel.getProperty("/scenario/standard/selectedModel");
-        const sdkName = localModel.getProperty("/scenario/standard/selectedSDK");
         const modelValue = localModel
             .getProperty("/models")
             .find((m: { name: string; description: string; "icon": string; "value": string }) => m.name === modelName)
-            .value
-        const sdkValue = localModel
-            .getProperty("/SDKs")
-            .find((s: { name: string; description: string; "icon": string; "value": string }) => s.name === sdkName)
             .value
         this.updateGraph(this.graphObjects.naturalPromptDone, "Success");
         const endpointFullRAg = "/connectToGenAI(...)";
@@ -37,7 +32,7 @@ export default class Standard extends BaseController {
             if (!withRag) {
                 this.toggleLLMNodeBusy(true);
                 this.toggleLLMNodeBusy(true);
-                const payload = { "text": question, "model": modelValue, "sdk": sdkValue, "withRAG": withRag };
+                const payload = { "text": question, "model": modelValue, "withRAG": withRag };
                 const response = await this.connectToGenAI(endpointFullRAg, payload);
                 const llmResults = response.content.replaceAll("<", "< ");
                 const llmDuration = response.duration;
@@ -46,7 +41,7 @@ export default class Standard extends BaseController {
             } else {
                 this.toggleRagGroupBusy(true);
                 // // Step 1
-                const payload = { "text": question, "model": modelValue, "sdk": sdkValue, "withRAG": withRag };
+                const payload = { "text": question, "model": modelValue, "withRAG": withRag };
                 const response = await this.connectToGenAI(endpointFullRAg, payload);
                 this.updateGraph(this.graphObjects.embeddingDone, "Success", response.duration);
                 // // // Step 2

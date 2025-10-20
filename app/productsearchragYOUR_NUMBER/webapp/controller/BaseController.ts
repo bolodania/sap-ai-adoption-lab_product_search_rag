@@ -343,7 +343,6 @@ export default abstract class BaseController extends Controller {
 		let oActionODataContextBinding = oDataModel.bindContext(endpoint);
 		oActionODataContextBinding.setParameter("query", payload.text);
 		oActionODataContextBinding.setParameter("chatModelName", payload.model);
-		oActionODataContextBinding.setParameter("sdkName", payload.sdk);
 		oActionODataContextBinding.setParameter("withRAG", payload.withRAG);
 
 		var that = this;

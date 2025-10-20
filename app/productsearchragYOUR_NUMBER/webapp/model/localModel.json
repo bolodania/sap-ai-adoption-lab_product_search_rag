@@ -1,8 +1,8 @@
 {
 	"scenario": {
 		"standard": {
-			"selectedModel": "GPT-4",
-			"selectedSDK": " CAP LLM Plugin"
+			"selectedModel": "GPT-5",
+			"selectedSDK": "Generative-AI-Hub-SDK (Python)"
 		}
 	},
 	"inputForLLM": "",
@@ -23,11 +23,6 @@
 		}
 	],
 	"SDKs": [
-		{
-			"name": "CAP LLM Plugin",
-			"icon": "sap-icon://source-code",
-			"value": "cap-llm-plugin"
-		},
 		{
 			"name": "Generative-AI-Hub-SDK (Python)",
 			"icon": "sap-icon://source-code",

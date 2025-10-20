@@ -11,10 +11,9 @@ class GenAIService extends LCAPApplicationService {
         this.on('connectToGenAI', async (req) => {
             const query = '%' + req.data.query + '%';
             const chatModelName = req.data.chatModelName;
-            const sdkName = req.data.sdkName;
             const withRAG = req.data.withRAG;
 
-            return handlerAICore.connectToGenAIHub(query, chatModelName, sdkName, withRAG);
+            return handlerAICore.connectToGenAIHub(query, chatModelName, withRAG);
         });
 
         return super.init();
