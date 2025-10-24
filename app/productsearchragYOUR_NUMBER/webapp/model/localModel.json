@@ -1,8 +1,7 @@
 {
 	"scenario": {
 		"standard": {
-			"selectedModel": "GPT-5",
-			"selectedSDK": "Generative-AI-Hub-SDK (Python)"
+			"selectedModel": "GPT-5"
 		}
 	},
 	"inputForLLM": "",
@@ -10,23 +9,16 @@
 	"version": "",
 	"models": [
 		{
-			"name": "GPT-4o",
-			"description": "GPT-4 is great",
-			"icon": "sap-icon://ai",
-			"value": "gpt-4o"
-		},
-		{
 			"name": "GPT-5",
 			"description": "GPT-5 is great",
 			"icon": "sap-icon://ai",
 			"value": "gpt-5"
-		}
-	],
-	"SDKs": [
+		},
 		{
-			"name": "Generative-AI-Hub-SDK (Python)",
-			"icon": "sap-icon://source-code",
-			"value": "sdk-python"
+			"name": "Claude Sonnet 4",
+			"description": "Claude Sonnet 4 is great",
+			"icon": "sap-icon://ai",
+			"value": "anthropic--claude-4-sonnet"
 		}
 	],
 	"standard": {

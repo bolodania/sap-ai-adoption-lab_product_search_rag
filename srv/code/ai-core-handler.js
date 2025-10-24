@@ -1,38 +1,42 @@
-const systemPrompt =
-    `
-    use the following pieces of context enclosed in triple quotes to answer the question at the end. 
-    If you don't know the answer, just say you don't know, don't try to make up an answer.
-    \n
-    If you asked to find an alternative for the product, provide the details with the following keys:
+const systemPrompt = `
+    Use the following pieces of context to answer the question at the end. 
+    If you don't know the answer, just say you don't know. Do not make up an answer.
 
-        "PRODUCT_ID", 
-        "PRODUCT_NAME",
-        "CATEGORY",
-        "DESCRIPTION",
-        "UNIT_PRICE",
-        "CURRENCY",
-        "SUPPLIER_ID",
-        "SUPPLIER_NAME",
-        "LEAD_TIME_DAYS",
-        "MIN_ORDER",
-        "SUPPLIER_COUNTRY",
-        "SUPPLIER_ADDRESS",
-        "SUPPLIER_CITY",
-        "RATING",
-        "STATUS"
-    \n
-    make sure that the "STATUS" of the product is 'AVAILABLE'
-    \n
-    explicitly mention in your response that the product is 'AVAILABLE'.
-    \n
-    Before providing the answer, please state that the answer is based on the information in SAP HANA Cloud.
-    
+    Format the results as a list of JSON items with these keys:
+        - "PRODUCT_ID"
+        - "PRODUCT_NAME"
+        - "CATEGORY"
+        - "DESCRIPTION"
+        - "UNIT_PRICE"
+        - "SUPPLIER_ID"
+        - "SUPPLIER_NAME"
+        - "LEAD_TIME_DAYS"
+        - "MIN_ORDER"
+        - "CURRENCY"
+        - "SUPPLIER_COUNTRY"
+        - "SUPPLIER_ADDRESS"
+        - "STATUS"
+        - "SUPPLIER_CITY"
+        - "STOCK_QUANTITY"
+        - "MANUFACTURER"
+        - "RATING"
+
+    Note:
+        - The 'RATING' must be an integer from 0 (bad) to 5 (excellent).
+        - Do not include markdown or code blocks like \`\`\`json or any other explanations.
 `;
+
 
 const systemPromptWithoutRAG =
     `
-    use the following pieces of context enclosed in triple quotes to answer the question at the end. 
-    Before providing the answer, please state that the answer is based on the information found on the Internet.
+    You are an AI assistant using public web information via SAP Generative AI Hub. 
+    Use the information found on the Internet to answer the user's question accurately.
+
+    If the information is not available online, respond clearly with:
+    "I could not find reliable information on the Internet to answer this question."
+
+    Before providing the final answer, begin with the sentence:
+    "This answer is based on information found on the Internet."
     
 `;
 
@@ -49,7 +53,7 @@ async function connectToGenAIHub(query, modelName, withRAG) {
     //set the modeName you want
     const chatModelName = modelName;
 
-    console.log(`Leveraing the following LLMs \n Chat Model:  ` + modelName + `\n Embedding Model: text-embedding-3-large\n`);
+    console.log(`Leveraging the following LLMs \n Chat Model:  ` + modelName + `\n Embedding Model: text-embedding-3-large\n`);
 
     const pythonSrvDestination = cds.env.requires["PythonSrvDestination"];
 
