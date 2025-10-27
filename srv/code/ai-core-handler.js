@@ -1,8 +1,7 @@
 const systemPrompt = `
-    Use the following pieces of context to answer the question at the end. 
-    If you don't know the answer, just say you don't know. Do not make up an answer.
+    Use the context below to answer the question. Do not make up answers; if unknown, say "I don't know."
 
-    Format the results as a list of JSON items with these keys:
+    Output strictly as a JSON array with these keys:
         - "PRODUCT_ID"
         - "PRODUCT_NAME"
         - "CATEGORY"
@@ -22,23 +21,23 @@ const systemPrompt = `
         - "RATING"
 
     Note:
+        - Be concise.
         - The 'RATING' must be an integer from 0 (bad) to 5 (excellent).
         - Do not include markdown or code blocks like \`\`\`json or any other explanations.
 `;
 
 
-const systemPromptWithoutRAG =
-    `
-    You are an AI assistant using public web information via SAP Generative AI Hub. 
-    Use the information found on the Internet to answer the user's question accurately.
+const systemPromptWithoutRAG = `
+    You are an AI assistant using public web information via SAP Generative AI Hub.
 
-    If the information is not available online, respond clearly with:
-    "I could not find reliable information on the Internet to answer this question."
-
-    Before providing the final answer, begin with the sentence:
-    "This answer is based on information found on the Internet."
-    
-`;
+    Instructions:
+    - Answer based on online information only
+    - If information is missing, respond: 
+        "I could not find reliable information on the Internet to answer this question."
+    - Begin your answer with:
+        "This answer is based on information found on the Internet."
+    - Provide only the final answer; no explanations or markdown
+    `;
 
 async function connectToGenAIHub(query, modelName, withRAG) {
 
@@ -79,21 +78,13 @@ async function connectToGenAIHub(query, modelName, withRAG) {
         headers: headers,
     });
 
-    // console.log(chatRagResponse);
-
-    let chatCompletionResponse = {
-        "role": "assistant",
-        "content": chatRagResponse.result
-    }
-    //Optional. handle memory after the RAG LLM call
-    const responseDate = new Date();
+    console.log(chatRagResponse);
 
     //build the response payload for the frontend.
     const response = {
-        "role": chatCompletionResponse.role,
-        "content": chatCompletionResponse.content,
-        "duration": (responseDate - startDate) / 1000
-        // "additionalContents": chatRagResponse.additionalContents,
+        "role": "assistant",
+        "content": withRAG ? JSON.stringify(chatRagResponse, null, 2): chatRagResponse,
+        "duration": (new Date() - startDate) / 1000
     };
 
     // console.log(chatCompletionResponse);
