@@ -1,8 +1,8 @@
 {
-    "PRODUCTS_IT_ACCESSORY_OPENAI_RMILLERYOUR_NUMBER": {
+    "PRODUCTS_IT_ACCESSORY_OPENAI_YOUR_HANA_USER": {
         "target": {
-            "object": "PRODUCTS_IT_ACCESSORY_OPENAI_RMILLERYOUR_NUMBER",
-            "schema": "RMILLERYOUR_NUMBER"
+            "object": "PRODUCTS_IT_ACCESSORY_OPENAI_YOUR_HANA_USER",
+            "schema": "YOUR_HANA_USER"
         }
     }
 }

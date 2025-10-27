@@ -137,7 +137,7 @@ resources:
   - name: cross_container_service
     type: org.cloudfoundry.existing-service
     parameters:
-      service-name: ups_RMILLERYOUR_NUMBER
+      service-name: ups_YOUR_HANA_USER
     properties:
       the-service-name: ${service-name}
   - name: product_search_rag_YOUR_NUMBER-service-uaa

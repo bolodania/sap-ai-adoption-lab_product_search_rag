@@ -1,10 +1,10 @@
 {
-    "ups_RMILLERYOUR_NUMBER": {
+    "ups_YOUR_HANA_USER": {
         "object_owner": {
             "object_privileges": [
                 {
-                    "schema": "RMILLERYOUR_NUMBER",
-                    "name": "PRODUCTS_IT_ACCESSORY_OPENAI_RMILLERYOUR_NUMBER",
+                    "schema": "YOUR_HANA_USER",
+                    "name": "PRODUCTS_IT_ACCESSORY_OPENAI_YOUR_HANA_USER",
                     "privileges_with_grant_option": [
                         "SELECT"
                     ]
@@ -14,8 +14,8 @@
         "application_user": {
             "object_privileges": [
                 {
-                    "schema": "RMILLERYOUR_NUMBER",
-                    "name": "PRODUCTS_IT_ACCESSORY_OPENAI_RMILLERYOUR_NUMBER",
+                    "schema": "YOUR_HANA_USER",
+                    "name": "PRODUCTS_IT_ACCESSORY_OPENAI_YOUR_HANA_USER",
                     "privileges": [
                         "SELECT"
                     ]
